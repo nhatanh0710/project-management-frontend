@@ -1,0 +1,30 @@
+.ant-layout {
+    background: var(--background);
+}
+
+.ant-btn-primary {
+    background: var(--primary);
+
+    &:hover {
+        background: var(--primary-hover) !important;
+    }
+}
+
+.ant-input,
+.ant-select-selector,
+.ant-picker {
+    border-radius: 10px !important;
+}
+
+.ant-card {
+    border-radius: 16px;
+}
+
+.ant-modal-content {
+    border-radius: 18px;
+}
+
+.ant-table {
+    border-radius: 12px;
+    overflow: hidden;
+}

@@ -1,0 +1,93 @@
+.container {
+    padding-top: 8px;
+}
+
+.header {
+    margin-bottom: 28px;
+
+    h2 {
+        margin-bottom: 8px;
+
+        font-size: 28px;
+        font-weight: 700;
+
+        color: var(--text);
+    }
+
+    p {
+        color: var(--text-secondary);
+        line-height: 1.6;
+    }
+}
+
+.form {
+
+    :global(.ant-form-item-label > label) {
+        font-weight: 600;
+        color: var(--text);
+    }
+
+    :global(.ant-input) {
+        border-radius: 12px;
+    }
+
+    :global(.ant-input-affix-wrapper) {
+        border-radius: 12px;
+    }
+
+    :global(.ant-input-textarea textarea) {
+        border-radius: 12px;
+    }
+}
+
+.error {
+    display: block;
+
+    margin-top: 6px;
+
+    color: var(--danger);
+
+    font-size: 13px;
+}
+
+.footer {
+    margin-top: 32px;
+
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+.cancel {
+    padding: 10px 22px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 12px;
+
+    background: white;
+
+    color: var(--text);
+
+    transition: var(--transition);
+
+    &:hover {
+        background: #f8fafc;
+    }
+}
+
+.create {
+    padding: 10px 22px;
+
+    border-radius: 12px;
+
+    background: var(--primary);
+
+    color: white;
+
+    transition: var(--transition);
+
+    &:hover {
+        background: var(--primary-hover);
+    }
+}
