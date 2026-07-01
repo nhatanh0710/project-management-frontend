@@ -1,0 +1,175 @@
+/* =======================
+   Common Card
+======================= */
+
+.card {
+    border-radius: 16px;
+    margin-bottom: 24px;
+}
+
+/* =======================
+   Header
+======================= */
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 32px;
+    flex-wrap: wrap;
+}
+
+.left {
+    flex: 1;
+    min-width: 0;
+}
+
+.right {
+    width: 240px;
+}
+
+.title {
+    margin-bottom: 8px !important;
+}
+
+.subtitle {
+    margin-bottom: 18px !important;
+    max-width: 720px;
+}
+
+.meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.actions {
+    display: flex;
+    gap: 12px;
+}
+
+/* =======================
+   Stats
+======================= */
+
+.grid {
+    margin-bottom: 24px;
+}
+
+.icon {
+    font-size: 20px;
+}
+
+/* =======================
+   Summary
+======================= */
+
+.summary {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.progress {
+    width: 100%;
+}
+
+.info {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 18px;
+    border: 1px solid #f0f0f0;
+    border-radius: 10px;
+    background: #fafafa;
+
+    span {
+        color: #666;
+        font-size: 14px;
+    }
+
+    strong {
+        font-size: 18px;
+        font-weight: 600;
+    }
+}
+
+/* =======================
+   Recent Projects
+======================= */
+
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+
+    padding: 16px 18px;
+
+    border: 1px solid #f0f0f0;
+    border-radius: 12px;
+
+    text-decoration: none;
+    color: inherit;
+
+    transition: all .2s ease;
+
+    &:hover {
+        border-color: #1677ff;
+        background: #f8fbff;
+    }
+}
+
+.name {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.row .right {
+    width: 220px;
+}
+
+/* =======================
+   Responsive
+======================= */
+
+@media (max-width: 992px) {
+    .container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .actions {
+        width: 100%;
+
+        button {
+            flex: 1;
+        }
+    }
+
+    .info {
+        grid-template-columns: 1fr;
+    }
+
+    .row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .row .right {
+        width: 100%;
+    }
+}

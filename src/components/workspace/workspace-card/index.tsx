@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { useState } from 'react';
 
 import {
   Avatar,
@@ -22,10 +23,10 @@ import {
 
 import { workspaceService } from '@/services/workspace.service';
 import { useWorkspace } from '@/contexts/workspace.context';
+import { useAuth } from '@/contexts/auth.context';
 
 import styles from './styles.module.scss';
-import { useAuth } from '@/contexts/auth.context';
-import { useState } from 'react';
+
 const { confirm } = Modal;
 
 interface WorkspaceCardProps {
@@ -35,40 +36,35 @@ interface WorkspaceCardProps {
 export default function WorkspaceCard({
   workspace,
 }: WorkspaceCardProps) {
-  const {
-    refresh,
-    openUpdateModal,
-  
-  } = useWorkspace();
+  const { refresh, openUpdateModal } = useWorkspace();
   const { user } = useAuth();
-  const [expanded, setExpanded] = useState(false);
-  const data = workspace.workspaceId;
 
+  const [expanded, setExpanded] = useState(false);
+
+  const data = workspace.workspaceId;
   if (!data) return null;
 
   const userId = user?.userId || user?._id;
 
-const ownerId =
-  typeof data.ownerId === 'string'
-    ? data.ownerId
-    : data.ownerId?._id;
+  const ownerId =
+    typeof data.ownerId === 'string'
+      ? data.ownerId
+      : data.ownerId?._id;
 
-const canEdit =
-  user?.role === 'ADMIN' ||
-  String(ownerId) === String(userId);
+  const canEdit =
+    user?.role === 'ADMIN' ||
+    String(ownerId) === String(userId);
 
   const handleDelete = () => {
     confirm({
       title: 'Delete Workspace',
       icon: <ExclamationCircleFilled />,
-      content: `Delete "${data.name}"? This action cannot be undone.`,
-      okText: 'Delete',
+      content: `Delete "${data.name}"?`,
       okType: 'danger',
-      cancelText: 'Cancel',
 
       async onOk() {
         await workspaceService.delete(data._id);
-        message.success('Workspace deleted');
+        message.success('Deleted');
         await refresh();
       },
     });
@@ -80,7 +76,7 @@ const canEdit =
       icon: <EyeOutlined />,
       label: (
         <Link href={`/user/workspace/${data._id}`}>
-          Open Workspace
+          Open
         </Link>
       ),
     },
@@ -90,7 +86,7 @@ const canEdit =
           {
             key: 'edit',
             icon: <EditOutlined />,
-            label: 'Edit Workspace',
+            label: 'Edit',
             onClick: () => openUpdateModal(data),
           },
         ]
@@ -105,7 +101,7 @@ const canEdit =
             key: 'delete',
             icon: <DeleteOutlined />,
             danger: true,
-            label: 'Delete Workspace',
+            label: 'Delete',
             onClick: handleDelete,
           },
         ]
@@ -114,59 +110,56 @@ const canEdit =
 
   return (
     <div className={styles.card}>
-      {/* TOP */}
-      <div className={styles.top}>
-        <div className={styles.titleWrapper}>
-          <Avatar size={28} className={styles.avatar}>
-            {data.name?.charAt(0)?.toUpperCase()}
-          </Avatar>
+      {/* LEFT */}
+      <div className={styles.left}>
+        <div className={styles.top}>
+          <div className={styles.titleWrapper}>
+            <Avatar size={28} className={styles.avatar}>
+              {data.name?.charAt(0)?.toUpperCase()}
+            </Avatar>
 
-          <div className={styles.title}>
-            {data.name}
+            <div className={styles.title}>
+              {data.name}
+            </div>
           </div>
+
+          <Dropdown menu={{ items }} trigger={['click']}>
+            <Button type="text" icon={<MoreOutlined />} />
+          </Dropdown>
         </div>
 
-        <Dropdown menu={{ items }} trigger={['click']}>
-          <Button type="text" icon={<MoreOutlined />} />
-        </Dropdown>
+        <div className={styles.description}>
+          {expanded
+            ? data.description
+            : (data.description?.slice(0, 120) ||
+              'No description.')}
+
+          {data.description?.length > 120 && (
+            <span
+              onClick={() => setExpanded(!expanded)}
+              className={styles.more}
+            >
+              {expanded ? ' show less' : '... more'}
+            </span>
+          )}
+        </div>
       </div>
 
-      {/* DESCRIPTION */}
-     <div className={styles.content}>
-  <p className={styles.description}>
-    {expanded
-      ? data.description
-      : (data.description?.slice(0, 150) || 'No description.')}
-
-    {data.description?.length > 150 && (
-      <span
-        onClick={() => setExpanded(!expanded)}
-        style={{
-          color: '#1677ff',
-          cursor: 'pointer',
-          marginLeft: 6,
-          fontWeight: 500,
-        }}
-      >
-        {expanded ? ' show less' : '... see more'}
-      </span>
-    )}
-  </p>
-</div>
-
-      {/* OWNER + MEMBERS */}
-      <div className={styles.meta}>
-        <div className={styles.member}>
+      {/* RIGHT */}
+      <div className={styles.right}>
+        <div className={styles.meta}>
           <TeamOutlined />
-          <span>{data.memberCount} members</span> |
-          <span>Owner: {data.ownerId?.name}</span>
-        </div>
+          <span>{data.memberCount}</span>
         </div>
 
-      {/* FOOTER */}
-      <div className={styles.footer}>
+        <div className={styles.owner}>
+          Owner: {data.ownerId?.name}
+        </div>
+
         <Link href={`/user/workspace/${data._id}`}>
-          <Button type="link">Open</Button>
+          <Button type="primary" block>
+            Open
+          </Button>
         </Link>
       </div>
     </div>

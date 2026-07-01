@@ -34,9 +34,9 @@ export default function UpdateWorkspaceModal() {
   useEffect(() => {
     if (selectedWorkspace) {
       reset({
-        name: selectedWorkspace.name,
-        description:
-          selectedWorkspace.description || '',
+  name: selectedWorkspace.workspaceId.name,
+  description:
+    selectedWorkspace.workspaceId.description || '',
       });
     }
   }, [selectedWorkspace, reset]);
@@ -49,7 +49,7 @@ export default function UpdateWorkspaceModal() {
   const onSubmit = async (data: FormValues) => {
     try {
       await workspaceService.update(
-        selectedWorkspace._id,
+        selectedWorkspace.workspaceId._id,
         data,
       );
 

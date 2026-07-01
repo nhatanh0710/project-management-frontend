@@ -4,6 +4,7 @@ import AppHeader from '@/components/layout/app-header';
 import AppSidebar from '@/components/layout/app-sidebar';
 
 import { AuthProvider } from '@/contexts/auth.context';
+import { WorkspaceProvider } from '@/contexts/workspace.context';
 
 export default function DashboardLayout({
   children,
@@ -12,30 +13,38 @@ export default function DashboardLayout({
 }) {
   return (
     <AuthProvider>
-      <div
-        style={{
-          display: 'flex',
-          minHeight: '100vh',
-        }}
-      >
-        <AppSidebar />
-
+      <WorkspaceProvider>
         <div
           style={{
-            flex: 1,
+            display: 'flex',
+            height: '100vh',
           }}
         >
-          <AppHeader />
+          <AppSidebar />
 
-          <main
+          <div
             style={{
-              padding: 24,
+              flex: 1,
+              minWidth: 0,
+              display: 'flex',
+              flexDirection: 'column',
             }}
           >
-            {children}
-          </main>
+            <AppHeader />
+
+            <main
+              style={{
+                flex: 1,
+                overflow: 'hidden', 
+                // dùng hidden thay vì scroll để tránh hiển thị scroll bar ngang khi nội dung vượt quá chiều rộng
+                padding: 12,
+              }}
+            >
+              {children}
+            </main>
+          </div>
         </div>
-      </div>
+      </WorkspaceProvider>
     </AuthProvider>
   );
 }

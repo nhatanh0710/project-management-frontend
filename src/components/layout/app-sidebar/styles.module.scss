@@ -1,9 +1,8 @@
 @use '@/styles/mixins.scss' as *;
 
 .sidebar {
-    width: 20%;
-    height: 100vh;
-
+    width: 200px;
+    height: auto;
     display: flex;
     flex-direction: column;
 

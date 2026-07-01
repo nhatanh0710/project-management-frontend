@@ -1,42 +1,43 @@
 'use client';
 
 import Link from 'next/link';
+import { AppstoreOutlined } from '@ant-design/icons';
 
-import {
-  AppstoreOutlined,
-} from '@ant-design/icons';
-
-import {
-  useWorkspace,
-} from '@/contexts/workspace.context';
-
+import { useWorkspace } from '@/contexts/workspace.context';
 import styles from './styles.module.scss';
-import { workspaceService } from '@/services/workspace.service';
-import { useEffect, useState } from 'react';
 
 export default function WorkspaceList() {
- const [workspaces, setWorkspaces] =
-  useState([]);
+  const {
+    workspaces,
+    loading,
+    currentWorkspace,
+    setCurrentWorkspace,
+  } = useWorkspace();
 
-const [loading, setLoading] =
-  useState(true);
+  const recentWorkspaces = (() => {
+    const sorted = [...workspaces].sort((a: any, b: any) => {
+      return (
+        new Date(b.workspaceId.createdAt).getTime() -
+        new Date(a.workspaceId.createdAt).getTime()
+      );
+    });
 
-useEffect(() => {
-  loadWorkspaces();
-}, []);
+    const activeWorkspace = sorted.find(
+      (item: any) =>
+        item.workspaceId._id ===
+        currentWorkspace?.workspaceId._id
+    );
 
-const loadWorkspaces = async () => {
-  try {
-    setLoading(true);
+    const others = sorted.filter(
+      (item: any) =>
+        item.workspaceId._id !==
+        currentWorkspace?.workspaceId._id
+    );
 
-    const data =
-      await workspaceService.getMyWorkspaces();
-
-    setWorkspaces(data);
-  } finally {
-    setLoading(false);
-  }
-};
+    return activeWorkspace
+      ? [activeWorkspace, ...others.slice(0, 3)]
+      : sorted.slice(0, 4);
+  })();
 
   return (
     <div className={styles.container}>
@@ -56,18 +57,24 @@ const loadWorkspaces = async () => {
           <div className={styles.empty}>
             Loading...
           </div>
-        ) : workspaces.length === 0 ? (
+        ) : recentWorkspaces.length === 0 ? (
           <div className={styles.empty}>
             No workspace
           </div>
         ) : (
-          workspaces
-            .slice(0, 5)
-            .map((item) => (
+          recentWorkspaces.map((item: any) => {
+            const isActive =
+              item.workspaceId._id ===
+              currentWorkspace?.workspaceId._id;
+
+            return (
               <Link
                 key={item.workspaceId._id}
                 href={`/user/workspace/${item.workspaceId._id}`}
-                className={styles.item}
+                onClick={() => setCurrentWorkspace(item)}
+                className={`${styles.item} ${
+                  isActive ? styles.active : ''
+                }`}
               >
                 <div className={styles.icon}>
                   <AppstoreOutlined />
@@ -77,7 +84,8 @@ const loadWorkspaces = async () => {
                   {item.workspaceId.name}
                 </span>
               </Link>
-            ))
+            );
+          })
         )}
       </div>
     </div>

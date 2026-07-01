@@ -4,6 +4,7 @@ export interface CreateWorkspaceDto {
 }
 
 export interface Workspace {
+  createdAt: string | number | Date;
   _id: string;
   name: string;
   description?: string;

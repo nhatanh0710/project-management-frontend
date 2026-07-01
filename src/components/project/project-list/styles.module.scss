@@ -1,0 +1,55 @@
+@use '@/styles/variables' as *;
+@use '@/styles/mixins' as *;
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: $spacing-lg;
+}
+
+.card {
+    border-radius: $radius-lg;
+    transition: $transition;
+
+    &:hover {
+        transform: translateY(-3px);
+        box-shadow: $shadow-md;
+    }
+
+    :global(.ant-card-body) {
+        padding: $spacing-lg;
+    }
+
+    h3 {
+        margin: 16px 0 8px;
+        font-size: 18px;
+        font-weight: 600;
+        color: $text;
+    }
+
+    p {
+        height: 42px;
+        margin-bottom: $spacing-lg;
+
+        color: $text-secondary;
+        font-size: 14px;
+        line-height: 1.5;
+
+        overflow: hidden;
+    }
+}
+
+.header {
+    @include flex-between;
+
+    svg {
+        font-size: 26px;
+        color: $primary;
+    }
+}
+
+@media (max-width:768px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+}

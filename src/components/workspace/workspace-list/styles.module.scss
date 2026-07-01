@@ -74,3 +74,14 @@
     font-weight: 600;
     flex-shrink: 0;
 }
+.item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.active {
+    font-weight: 700;
+    background: #f0f5ff;
+    color: var(--primary);
+}

@@ -23,6 +23,7 @@ import CreateWorkspaceModal from '@/components/workspace/create-workspace-model'
 import UpdateWorkspaceModal from '@/components/workspace/update-workspace-model';
 
 import WorkspaceCard from '@/components/workspace/workspace-card';
+import WorkspaceSidebar from '@/components/workspace/workspace-sidebar';
 
 const { Paragraph } = Typography;
 
@@ -55,6 +56,7 @@ export default function WorkspacePage() {
 
   return (
     <>
+    <WorkspaceSidebar />
       <div
         style={{
           padding: 32,
@@ -164,28 +166,7 @@ export default function WorkspacePage() {
         )}
       </div>
 
-      <CreateWorkspaceModal
-        open={openCreate}
-        onClose={() =>
-          setOpenCreate(false)
-        }
-        onSuccess={refresh}
-      />
-
-      <UpdateWorkspaceModal
-        open={openUpdate}
-        workspace={
-          selectedWorkspace
-        }
-        onClose={
-          closeUpdateModal
-        }
-        onSuccess={async () => {
-          closeUpdateModal();
-
-          await refresh();
-        }}
-      />
+      
     </>
   );
 }

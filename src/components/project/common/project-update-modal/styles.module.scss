@@ -1,0 +1,44 @@
+@use '@/styles/variables' as *;
+
+.form {
+    margin-top: $spacing-md;
+}
+
+.row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: $spacing-md;
+}
+
+.full {
+    width: 100%;
+}
+
+.footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: $spacing-md;
+
+    margin-top: $spacing-lg;
+    padding-top: $spacing-lg;
+
+    border-top: 1px solid $border;
+}
+
+:global(.ant-form-item) {
+    margin-bottom: $spacing-md;
+}
+
+@media (max-width: 768px) {
+    .row {
+        grid-template-columns: 1fr;
+    }
+
+    .footer {
+        flex-direction: column-reverse;
+
+        button {
+            width: 100%;
+        }
+    }
+}

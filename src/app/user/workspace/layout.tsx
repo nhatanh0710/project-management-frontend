@@ -1,35 +1,57 @@
 'use client';
 
-import WorkspaceSidebar from '@/components/workspace/workspace-sidebar';
-
 import {
-  WorkspaceProvider,
+  useWorkspace,
 } from '@/contexts/workspace.context';
+
+import CreateWorkspaceModal from '@/components/workspace/create-workspace-modal';
+import UpdateWorkspaceModal from '@/components/workspace/update-workspace-modal';
 
 export default function WorkspaceLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const {
+    openCreate,
+    setOpenCreate,
+
+    openUpdate,
+    selectedWorkspace,
+
+    closeUpdateModal,
+
+    refresh,
+  } = useWorkspace();
+
   return (
-    <WorkspaceProvider>
+    <>
       <div
         style={{
           display: 'flex',
-          height: 'calc(100vh - 70px)',
+          width: '100%',
+          height: '100%',
+          overflow: 'hidden',
         }}
       >
-        <WorkspaceSidebar />
-
-        <div
-          style={{
-            flex: 1,
-            overflow: 'hidden',
-          }}
-        >
-          {children}
-        </div>
+        {children}
       </div>
-    </WorkspaceProvider>
+
+      <CreateWorkspaceModal
+        open={openCreate}
+        onClose={() => setOpenCreate(false)}
+        onSuccess={refresh}
+      />
+
+      <UpdateWorkspaceModal
+        open={openUpdate}
+        workspace={selectedWorkspace}
+        onClose={closeUpdateModal}
+        onSuccess={async () => {
+          closeUpdateModal();
+          await refresh();
+        }}
+      />
+    </>
   );
 }

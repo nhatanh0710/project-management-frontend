@@ -62,11 +62,11 @@ export default function WorkspaceSidebar() {
             </strong>
           </div>
 
-          <div className={styles.row}>
+          {/* <div className={styles.row}>
             <span>Joined</span>
 
-            <strong>0</strong>
-          </div>
+           
+          </div> */}
         </div>
       </section>
 
