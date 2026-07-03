@@ -1,13 +1,43 @@
-import { ExperienceLevel } from '@/types/experience-level.type';
-import { ProjectRole } from '@/types/project-role.type';
-import { User } from '@/types/user.type';
+/* ================= Enums ================= */
+
+export enum ProjectRole {
+  OWNER = 'owner',
+  MANAGER = 'manager',
+  MEMBER = 'member',
+  VIEWER = 'viewer',
+}
+
+export enum ExperienceLevel {
+  FRESHER = 'fresher',
+  JUNIOR = 'junior',
+  MIDDLE = 'middle',
+  SENIOR = 'senior',
+}
+
+/* ================= User ================= */
+
+export interface ProjectMemberUser {
+  _id: string;
+
+  name: string;
+
+  email: string;
+
+  avatarUrl?: string;
+
+  role?: string
+}
+
+/* ================= Project Member ================= */
 
 export interface ProjectMember {
   _id: string;
 
   project_id: string;
 
-  user_id: string | User;
+  user_id: string;
+
+  user: ProjectMemberUser;
 
   role: ProjectRole;
 
@@ -35,6 +65,8 @@ export interface ProjectMember {
 
   updatedAt?: string;
 }
+
+/* ================= Payload ================= */
 
 export interface MemberItemPayload {
   user_id: string;

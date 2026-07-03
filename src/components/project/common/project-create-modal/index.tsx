@@ -84,9 +84,7 @@ export default function ProjectCreateModal({
 
     setOpenCreate(false);
   };
-if (!openCreate) {
-  return null;
-}
+
   return (
     <Modal
       open={openCreate}
@@ -94,6 +92,7 @@ if (!openCreate) {
       footer={null}
       width={650}
       onCancel={handleClose}
+      destroyOnHidden
     >
       <Form
         form={form}

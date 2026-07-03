@@ -1,0 +1,96 @@
+.card {
+    margin-bottom: 20px;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+}
+
+.left {
+    flex: 1;
+}
+
+.title {
+    margin-bottom: 4px !important;
+}
+
+.subtitle {
+    color: #64748b;
+    margin-bottom: 16px !important;
+}
+
+.meta {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.actions {
+    flex-shrink: 0;
+}
+
+
+//toolbar
+.toolbar {
+    margin-bottom: 20px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.search {
+    width: 300px;
+}
+
+.role {
+    width: 180px;
+}
+
+//table
+.name {
+    font-weight: 600;
+    color: #0f172a;
+}
+
+.email {
+    font-size: 13px;
+    color: #64748b;
+}
+
+//create
+.form {
+    margin-top: 20px;
+}
+
+.full {
+    width: 100%;
+}
+
+.footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+//remove
+.content {
+    text-align: center;
+    padding: 12px 0;
+}
+
+.icon {
+    font-size: 48px;
+    color: #faad14;
+    margin-bottom: 20px;
+}
+
+.footer {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 28px;
+}

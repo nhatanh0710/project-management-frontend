@@ -119,15 +119,14 @@ export default function ProjectUpdateModal() {
       );
     }
   };
-if (!openUpdate ) {
-  return null;
-}
+
   return (
     <Modal
       open={openUpdate}
       title="Update Project"
       footer={null}
       width={650}
+      destroyOnHidden
       onCancel={() => {
         form.resetFields();
         closeUpdateModal();

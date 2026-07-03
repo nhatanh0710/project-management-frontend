@@ -1,8 +1,5 @@
 'use client';
 
-import { useMemo } from 'react';
-
-import { useAuth } from '@/contexts/auth.context';
 import { useProjectMembers } from '@/contexts/project-member.context';
 
 import {
@@ -28,30 +25,8 @@ import {
 } from '@/utils/project-permission';
 
 export function useProjectPermission() {
-  const { user } = useAuth();
-
-  const { members } =
+  const { currentMember } =
     useProjectMembers();
-
-  const currentMember =
-    useMemo(() => {
-      if (!user) return null;
-
-      return members.find((member) => {
-        if (
-          typeof member.user_id ===
-          'string'
-        ) {
-          return (
-            member.user_id === user._id
-          );
-        }
-
-        return (
-          member.user_id._id === user._id
-        );
-      });
-    }, [members, user]);
 
   const role =
     currentMember?.role;
@@ -62,11 +37,8 @@ export function useProjectPermission() {
     role,
 
     isOwner: isOwner(role),
-
     isManager: isManager(role),
-
     isMember: isMember(role),
-
     isViewer: isViewer(role),
 
     canViewProject:
