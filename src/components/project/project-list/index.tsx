@@ -39,8 +39,10 @@ export default function ProjectList() {
   if (loading) {
     return (
       <div className={styles.grid}>
-        {Array.from({ length: 6 }).map((_, i) => (
-          <Card key={i}>
+        {Array.from({
+          length: 6,
+        }).map((_, index) => (
+          <Card key={index}>
             <Skeleton active />
           </Card>
         ))}
@@ -59,7 +61,9 @@ export default function ProjectList() {
       {projects.map((project) => (
         <ProjectCard
           key={project._id}
-          workspaceId={workspaceId as string}
+          workspaceId={
+            workspaceId as string
+          }
           project={project}
           onEdit={() =>
             openUpdateModal(project)
@@ -101,23 +105,30 @@ function ProjectCard({
   };
 
   return (
-    <Card
-      hoverable
-      className={styles.card}
-      extra={
-        <Dropdown
-          menu={menu}
-          trigger={['click']}
-        >
-          <Button
-            type="text"
-            icon={<EllipsisOutlined />}
-          />
-        </Dropdown>
-      }
+    <Link
+      href={`/user/workspace/${workspaceId}/project/${project._id}`}
+      className={styles.cardLink}
     >
-      <Link
-        href={`/workspace/${workspaceId}/project/${project._id}`}
+      <Card
+        hoverable
+        className={styles.card}
+        extra={
+          <Dropdown
+            menu={menu}
+            trigger={['click']}
+          >
+            <Button
+              type="text"
+              icon={
+                <EllipsisOutlined />
+              }
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+              }}
+            />
+          </Dropdown>
+        }
       >
         <div className={styles.header}>
           <FolderOpenOutlined />
@@ -139,7 +150,7 @@ function ProjectCard({
           percent={project.progress}
           size="small"
         />
-      </Link>
-    </Card>
+      </Card>
+    </Link>
   );
 }

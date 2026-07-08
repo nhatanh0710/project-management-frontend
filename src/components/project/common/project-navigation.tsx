@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-
 import { usePathname } from 'next/navigation';
 
 import {
@@ -11,18 +10,25 @@ import {
   SettingOutlined,
 } from '@ant-design/icons';
 
+import { useWorkspace } from '@/contexts/workspace.context';
+import { useCurrentProject } from '@/contexts/current-project.context';
+
 import styles from './styles.module.scss';
 
-interface Props {
-  workspaceId: string;
-  projectId: string;
-}
-
-export default function ProjectNavigation({
-  workspaceId,
-  projectId,
-}: Props) {
+export default function ProjectNavigation() {
   const pathname = usePathname();
+
+  const { currentWorkspace } = useWorkspace();
+  const { project } = useCurrentProject();
+
+  if (!currentWorkspace || !project) {
+    return null;
+  }
+
+  const workspaceId =
+    currentWorkspace.workspaceId._id;
+
+  const projectId = project._id;
 
   const items = [
     {
@@ -50,17 +56,14 @@ export default function ProjectNavigation({
   return (
     <nav className={styles.navigation}>
       {items.map((item) => {
-        const active =
-          pathname === item.href;
+        const active = pathname === item.href;
 
         return (
           <Link
             key={item.href}
             href={item.href}
             className={`${styles.navItem} ${
-              active
-                ? styles.active
-                : ''
+              active ? styles.active : ''
             }`}
           >
             {item.icon}

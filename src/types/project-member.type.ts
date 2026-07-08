@@ -86,9 +86,9 @@ export interface AddMembersPayload {
   members: MemberItemPayload[];
 }
 
-export interface UpdateMemberPayload {
-  role?: ProjectRole;
+/* ===== Update Profile ===== */
 
+export interface UpdateMemberProfilePayload {
   skills?: string[];
 
   experience_level?: ExperienceLevel;
@@ -97,3 +97,11 @@ export interface UpdateMemberPayload {
 
   working_hours_per_day?: number;
 }
+
+/* ===== Update Role ===== */
+
+export interface UpdateMemberRolePayload {
+  role: ProjectRole;
+}
+
+

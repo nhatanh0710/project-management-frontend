@@ -16,7 +16,7 @@ import { useCurrentProject } from '@/contexts/current-project.context';
 
 import { projectService } from '@/services/project.service';
 
-import styles from '../styles.module.scss';
+import styles from './styles.module.scss';
 
 const { TextArea } = Input;
 

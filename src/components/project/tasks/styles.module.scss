@@ -1,0 +1,130 @@
+/* ===========================
+   Toolbar
+=========================== */
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  gap: 16px;
+
+  margin-bottom: 20px;
+}
+
+.toolbarLeft {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+
+  :global(.ant-input-affix-wrapper) {
+    width: 320px;
+  }
+
+  :global(.ant-select) {
+    width: 180px;
+  }
+}
+
+.toolbarRight {
+  display: flex;
+  align-items: center;
+}
+/* ===========================
+   Task Card
+=========================== */
+
+.taskCard {
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.taskCardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 12px;
+}
+
+.taskCode {
+  font-size: 12px;
+}
+
+.taskTitle {
+  margin-bottom: 8px !important;
+
+  font-size: 15px;
+}
+
+.taskDescription {
+  min-height: 42px;
+
+  margin-bottom: 16px !important;
+}
+
+.taskMeta {
+  display: flex;
+  flex-direction: column;
+
+  gap: 8px;
+
+  margin-bottom: 16px;
+
+  color: #64748b;
+
+  font-size: 13px;
+}
+
+.taskFooter {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.taskBoard {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.taskColumn {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 16px;
+  min-height: 650px;
+}
+
+.columnHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 16px;
+}
+
+.columnHeader h5 {
+  margin: 0 !important;
+}
+
+.columnCount {
+  background: #e2e8f0;
+  border-radius: 999px;
+  min-width: 28px;
+  height: 28px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.columnBody {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}

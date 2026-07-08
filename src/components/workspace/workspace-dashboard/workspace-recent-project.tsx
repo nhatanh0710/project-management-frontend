@@ -18,7 +18,7 @@ import ProjectStatusTag from '@/components/project/common/project-status-tag';
 import styles from './styles.module.scss';
 
 export default function RecentProjects() {
-  const { id } = useParams();
+  const { workspaceId } = useParams();
 
   const { projects } =
     useProjectList();
@@ -47,7 +47,7 @@ export default function RecentProjects() {
           .map((project) => (
             <Link
               key={project._id}
-              href={`/user/workspace/${id}/project/${project._id}`}
+              href={`/user/workspace/${workspaceId}/project/${project._id}`}
               className={styles.row}
             >
               <div className={styles.left}>

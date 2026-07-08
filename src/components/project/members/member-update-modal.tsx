@@ -111,26 +111,35 @@ export default function MemberUpdateModal() {
     try {
       setSubmitting(true);
 
-      const userId =
-        typeof selectedMember.user_id ===
-        'string'
-          ? selectedMember.user_id
-          : selectedMember.user_id._id;
-
-      await updateMember(userId, {
-        role: values.role,
-        skills: values.skills ?? [],
-        experience_level:
-          values.experience_level,
-        max_tasks: values.max_tasks,
-        working_hours_per_day:
-          values.working_hours_per_day,
-      });
+      await updateMember(
+        {
+          skills:
+            values.skills ?? [],
+          experience_level:
+            values.experience_level,
+          max_tasks:
+            values.max_tasks,
+          working_hours_per_day:
+            values.working_hours_per_day,
+        },
+        values.role,
+      );
 
       handleClose();
     } catch (err: any) {
+      console.log('ERROR =', err);
+      console.log(
+        'response =',
+        err?.response,
+      );
+      console.log(
+        'data =',
+        err?.response?.data,
+      );
+
       message.error(
         err?.response?.data?.message ??
+          err?.message ??
           'Update member failed',
       );
     } finally {
@@ -142,11 +151,7 @@ export default function MemberUpdateModal() {
     return null;
   }
 
-  const user =
-    typeof selectedMember.user_id ===
-    'string'
-      ? null
-      : selectedMember.user_id;
+  const user = selectedMember.user;
 
   return (
     <Modal
@@ -163,27 +168,25 @@ export default function MemberUpdateModal() {
         className={styles.form}
         onFinish={handleSubmit}
       >
-        {user && (
-          <div className={styles.member}>
-            <Avatar
-              size={54}
-              src={user.avatarUrl}
-              icon={<UserOutlined />}
-            />
+        <div className={styles.member}>
+          <Avatar
+            size={54}
+            src={user.avatarUrl}
+            icon={<UserOutlined />}
+          />
 
-            <div>
-              <Text strong>
-                {user.name}
-              </Text>
+          <div>
+            <Text strong>
+              {user.name}
+            </Text>
 
-              <br />
+            <br />
 
-              <Text type="secondary">
-                {user.email}
-              </Text>
-            </div>
+            <Text type="secondary">
+              {user.email}
+            </Text>
           </div>
-        )}
+        </div>
 
         <div className={styles.row}>
           <Form.Item

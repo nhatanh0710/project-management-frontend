@@ -19,7 +19,9 @@ export default function ProjectProgress({
     <div>
       <Progress
         percent={progress}
-        strokeWidth={10}
+        size={10}
+        //dùng size nhỏ hơn để hiển thị thanh tiến trình mỏng hơn
+        //không dùng strokeWidth vì sẽ làm cho thanh tiến trình bị cắt bớt
       />
 
       <div

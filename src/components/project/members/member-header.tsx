@@ -2,7 +2,6 @@
 
 import {
   Button,
-  Card,
   Space,
   Tag,
   Typography,
@@ -11,7 +10,6 @@ import {
 import {
   TeamOutlined,
   PlusOutlined,
-  ReloadOutlined,
 } from '@ant-design/icons';
 
 import { useProjectMember } from '@/contexts/project-member.context';
@@ -19,73 +17,54 @@ import { useProjectList } from '@/contexts/project-list.context';
 
 import styles from './styles.module.scss';
 
-const { Title, Paragraph } = Typography;
+const { Title, Text } = Typography;
 
 export default function MemberHeader() {
   const {
     members,
-    refreshMembers,
     setOpenCreate,
   } = useProjectMember();
 
   const { currentProject } = useProjectList();
 
   return (
-    <Card className={styles.card}>
-      <div className={styles.container}>
-        <div className={styles.left}>
-          <Title
-            level={2}
-            className={styles.title}
-          >
-            Project Members
-          </Title>
+    <div className={styles.header}>
+      <div className={styles.left}>
+        <Title
+          level={4}
+          className={styles.title}
+        >
+          Members
+        </Title>
 
-          <Paragraph
-            className={styles.subtitle}
+        <Space size={8}>
+          <Tag
+            icon={<TeamOutlined />}
+            color="blue"
           >
-            Manage members, roles and permissions
-            of this project.
-          </Paragraph>
+            {members.length} Members
+          </Tag>
 
-          <Space
-            wrap
-            className={styles.meta}
-          >
-            <Tag
-              color="blue"
-              icon={<TeamOutlined />}
+          {currentProject && (
+            <Text
+              type="secondary"
+              className={styles.project}
             >
-              {members.length} Members
-            </Tag>
-
-            {currentProject && (
-              <Tag color="processing">
-                {currentProject.name}
-              </Tag>
-            )}
-          </Space>
-        </div>
-
-        <Space className={styles.actions}>
-          <Button
-            icon={<ReloadOutlined />}
-            onClick={refreshMembers}
-          >
-            Refresh
-          </Button>
-
-          <Button
-            type="primary"
-            icon={<PlusOutlined />}
-            onClick={() =>
-              setOpenCreate(true)
-            }
-          >
-            Add Member
-          </Button>
+              {currentProject.name}
+            </Text>
+          )}
         </Space>
       </div>
-    </Card>
+
+      <Button
+        type="primary"
+        icon={<PlusOutlined />}
+        onClick={() =>
+          setOpenCreate(true)
+        }
+      >
+        Add Member
+      </Button>
+    </div>
   );
 }

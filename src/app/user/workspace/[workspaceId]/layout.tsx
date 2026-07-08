@@ -17,11 +17,11 @@ interface Props {
 export default function WorkspaceDetailLayout({
   children,
 }: Props) {
-  const { id } = useParams();
+  const { workspaceId } = useParams();
 
   return (
     <ProjectListProvider
-      workspaceId={id as string}
+      workspaceId={workspaceId as string}
     >
       <div
         style={{
@@ -47,7 +47,7 @@ export default function WorkspaceDetailLayout({
       </div>
 
       <ProjectCreateModal
-        workspaceId={id as string}
+        workspaceId={workspaceId as string}
       />
 
       <ProjectUpdateModal />

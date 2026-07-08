@@ -17,18 +17,26 @@ import WorkspaceSummary from '@/components/workspace/workspace-dashboard/workspa
 export default function WorkspaceDashboardPage() {
   const params = useParams();
 
+
+
   const {
     selectWorkspaceById,
+    workspaces,
   } = useWorkspace();
 
   useEffect(() => {
-    if (params.id) {
-      selectWorkspaceById(
-        params.id as string,
-      );
-    }
-  }, [params.id]);
-
+  if (
+    params.workspaceId &&
+    workspaces.length > 0
+  ) {
+    selectWorkspaceById(
+      params.workspaceId as string,
+    );
+  }
+}, [
+  params.workspaceId,
+  workspaces,
+]);
   const {
     loading,
     projects,

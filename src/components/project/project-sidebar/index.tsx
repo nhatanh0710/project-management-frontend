@@ -2,14 +2,16 @@
 
 import Link from 'next/link';
 import { useMemo, useState } from 'react';
-import { useParams, usePathname } from 'next/navigation';
 
 import {
-  AppstoreOutlined,
+  useParams,
+} from 'next/navigation';
+
+import {
   FolderOpenOutlined,
   PlusOutlined,
-  SearchOutlined,
   ReloadOutlined,
+  SearchOutlined,
 } from '@ant-design/icons';
 
 import {
@@ -22,11 +24,14 @@ import {
 } from 'antd';
 
 import { useProjectList } from '@/contexts/project-list.context';
+
 import { ProjectStatus } from '@/types/project.type';
 
 import styles from './styles.module.scss';
 
-const statusColor = (status: ProjectStatus) => {
+const statusColor = (
+  status: ProjectStatus,
+) => {
   switch (status) {
     case ProjectStatus.PLANNING:
       return 'default';
@@ -46,14 +51,10 @@ const statusColor = (status: ProjectStatus) => {
 };
 
 export default function ProjectSidebar() {
-  const pathname = usePathname();
-
-  const params = useParams();
-
-  const { id, projectId } =
-  useParams();
-
-const workspaceId = id as string;
+  const {
+    workspaceId,
+    projectId,
+  } = useParams();
 
   const {
     projects,
@@ -62,17 +63,23 @@ const workspaceId = id as string;
     setOpenCreate,
   } = useProjectList();
 
-  const [keyword, setKeyword] = useState('');
+  const [keyword, setKeyword] =
+    useState('');
 
-  const filteredProjects = useMemo(() => {
-    if (!keyword.trim()) return projects;
+  const filteredProjects =
+    useMemo(() => {
+      if (!keyword.trim())
+        return projects;
 
-    return projects.filter((project) =>
-      project.name
-        .toLowerCase()
-        .includes(keyword.toLowerCase()),
-    );
-  }, [projects, keyword]);
+      return projects.filter(
+        (project) =>
+          project.name
+            .toLowerCase()
+            .includes(
+              keyword.toLowerCase(),
+            ),
+      );
+    }, [projects, keyword]);
 
   return (
     <aside className={styles.sidebar}>
@@ -82,41 +89,34 @@ const workspaceId = id as string;
         <div>
           <h2>Projects</h2>
 
-          <span>{projects.length} projects</span>
+          <span>
+            {projects.length} projects
+          </span>
         </div>
 
         <Button
           type="primary"
           icon={<PlusOutlined />}
-          onClick={() => setOpenCreate(true)}
+          onClick={() =>
+            setOpenCreate(true)
+          }
         />
       </div>
 
-      {/* Workspace */}
+      {/* Search */}
 
-       {/* <Link
-        href={`/workspace/${workspaceId}`}
-        className={`${styles.workspace} ${
-          pathname === `/workspace/${workspaceId}`
-            ? styles.active
-            : ''
-        }`}
-      > 
-       <AppstoreOutlined />
-
-        
-      </Link> */}
-
-      {/* Search  */}
-          
       <div className={styles.search}>
         <Input
-          value={keyword}
           allowClear
+          value={keyword}
+          prefix={
+            <SearchOutlined />
+          }
           placeholder="Search project..."
-          prefix={<SearchOutlined />}
           onChange={(e) =>
-            setKeyword(e.target.value)
+            setKeyword(
+              e.target.value,
+            )
           }
         />
       </div>
@@ -129,7 +129,9 @@ const workspaceId = id as string;
         <Tooltip title="Refresh">
           <Button
             type="text"
-            icon={<ReloadOutlined />}
+            icon={
+              <ReloadOutlined />
+            }
             onClick={() =>
               refreshProjects()
             }
@@ -137,11 +139,15 @@ const workspaceId = id as string;
         </Tooltip>
       </div>
 
-      {/* List */}
+      {/* Project List */}
 
       <div className={styles.list}>
         {loading && (
-          <div className={styles.loading}>
+          <div
+            className={
+              styles.loading
+            }
+          >
             <Spin />
           </div>
         )}
@@ -162,7 +168,7 @@ const workspaceId = id as string;
             (project) => (
               <Link
                 key={project._id}
-                href={`user/workspace/${workspaceId}/project/${project._id}`}
+                href={`/user/workspace/${workspaceId}/project/${project._id}`}
                 className={`${styles.item} ${
                   projectId ===
                   project._id
@@ -223,14 +229,12 @@ const workspaceId = id as string;
       {/* Footer */}
 
       <div className={styles.footer}>
-        <div>
-          <span>Total</span>
+        <span>Total</span>
 
-          <strong>
-            {projects.length}
-          </strong>
-        </div>
+        <strong>
+          {projects.length}
+        </strong>
       </div>
     </aside>
   );
-}  
+}

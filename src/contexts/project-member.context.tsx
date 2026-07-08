@@ -15,8 +15,9 @@ import { userService } from '@/services/user.service';
 import {
   AddMembersPayload,
   ProjectMember,
-  UpdateMemberPayload,
+  UpdateMemberProfilePayload,
   UserSearchItem,
+  ProjectRole,
 } from '@/types/project-member.type';
 
 interface Pagination {
@@ -76,7 +77,8 @@ interface ProjectMemberContextType {
   ) => Promise<void>;
 
   updateMember: (
-    data: UpdateMemberPayload,
+    data: UpdateMemberProfilePayload,
+    role?: ProjectRole,
   ) => Promise<void>;
 
   removeMember: () => Promise<void>;
@@ -255,28 +257,43 @@ export function ProjectMemberProvider({
 
   // ================= UPDATE =================
 
-  const updateMember =
-    async (
-      data: UpdateMemberPayload,
-    ) => {
-      if (!selectedMember) return;
+  const updateMember = async (
+  profile: UpdateMemberProfilePayload,
+  role?: ProjectRole,
+) => {
+  if (!selectedMember) return;
 
-      await projectMemberService.updateMember(
-        projectId,
-        selectedMember.user._id,
-        data,
-      );
+  // update profile
+  await projectMemberService.updateProfile(
+    projectId,
+    selectedMember.user._id,
+    profile,
+  );
 
-      message.success(
-        'Member updated successfully',
-      );
+  // chỉ update role khi có thay đổi
+  if (
+    role &&
+    role !== selectedMember.role
+  ) {
+    await projectMemberService.updateRole(
+      projectId,
+      selectedMember.user._id,
+      {
+        role,
+      },
+    );
+  }
 
-      setOpenUpdate(false);
+  message.success(
+    'Member updated successfully',
+  );
 
-      setSelectedMember(null);
+  setOpenUpdate(false);
 
-      await refreshMembers();
-    };
+  setSelectedMember(null);
+
+  await refreshMembers();
+};
 
   // ================= REMOVE =================
 

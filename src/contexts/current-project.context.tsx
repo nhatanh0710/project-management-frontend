@@ -45,15 +45,18 @@ export function CurrentProjectProvider({
     useState<string | null>(null);
 
   const refreshProject = async () => {
+     console.log('CurrentProjectProvider refresh');
     try {
       setLoading(true);
       setError(null);
 
       const data =
         await projectService.getById(projectId);
-
+      console.log('GET PROJECT SUCCESS', data);
       setProject(data);
     } catch (err: any) {
+      console.log('GET PROJECT ERROR', err.response?.status, err.response?.data);
+
       setError(
         err?.response?.data?.message ??
           'Failed to load project'

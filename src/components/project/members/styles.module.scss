@@ -1,36 +1,33 @@
 .card {
-    margin-bottom: 20px;
+    margin-bottom: 5px;
 }
 
 .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 24px;
+    gap: 12px;
+}
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
 }
 
 .left {
-    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
 }
 
 .title {
-    margin-bottom: 4px !important;
+    margin: 0 !important;
 }
 
-.subtitle {
-    color: #64748b;
-    margin-bottom: 16px !important;
+.project {
+    font-size: 13px;
 }
-
-.meta {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.actions {
-    flex-shrink: 0;
-}
-
 
 //toolbar
 .toolbar {

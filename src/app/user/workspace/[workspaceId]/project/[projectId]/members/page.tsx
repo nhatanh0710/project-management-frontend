@@ -8,11 +8,10 @@ import MemberAddModal from '@/components/project/members/member-add-modal';
 import MemberUpdateModal from '@/components/project/members/member-update-modal';
 import MemberRemoveModal from '@/components/project/members/member-remove-modal';
 
-import styles from './styles.module.scss';
 
 export default function MembersPage() {
   return (
-    <div className={styles.container}>
+    <div >
       <MemberHeader />
 
       <MemberToolbar />

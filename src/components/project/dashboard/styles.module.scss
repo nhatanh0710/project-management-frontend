@@ -1,0 +1,91 @@
+.dashboard {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.statisticsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,
+            minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.statisticsCard {
+    border-radius: 12px;
+}
+
+.statisticsTitle {
+    color: #64748b;
+    font-size: 14px;
+}
+
+.statisticsValue {
+    margin-top: 8px;
+    font-size: 30px;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+.section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.sectionHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sectionTitle {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+    color: #0f172a;
+}
+
+.card {
+    border-radius: 12px;
+}
+
+.taskList {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.taskItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 0;
+
+    &:not(:last-child) {
+        border-bottom: 1px solid #e2e8f0;
+    }
+}
+
+.taskInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.taskTitle {
+    font-weight: 600;
+    color: #0f172a;
+}
+
+.taskMeta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #64748b;
+    font-size: 13px;
+}
+
+.empty {
+    padding: 40px 0;
+}

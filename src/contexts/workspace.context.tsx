@@ -176,26 +176,25 @@ export function WorkspaceProvider({
 
 
 
-  const selectWorkspaceById = (
-    id: string
-  ) => {
+ const selectWorkspaceById = (
+  id: string
+) => {
+  console.log('PARAM ID:', id);
 
-    const workspace =
-      workspaces.find(
-        (item) =>
-          item.workspaceId._id === id
-      );
+  console.log('WORKSPACES:', workspaces);
 
+  const workspace =
+    workspaces.find(
+      (item) =>
+        item.workspaceId._id === id
+    );
 
-    if (workspace) {
+  console.log('FOUND:', workspace);
 
-      setCurrentWorkspace(
-        workspace
-      );
-
-    }
-
-  };
+  if (workspace) {
+    setCurrentWorkspace(workspace);
+  }
+};
 
 
 
