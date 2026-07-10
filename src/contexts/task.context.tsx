@@ -65,6 +65,10 @@ interface ProjectTaskContextType {
 
   selectedTask: Task | null;
 
+  setSelectedTask: React.Dispatch<
+    React.SetStateAction<Task | null>
+  >;
+
   openUpdateModal: (
     task: Task,
   ) => void;
@@ -134,10 +138,7 @@ export function ProjectTaskProvider({
   const [
     selectedTask,
     setSelectedTask,
-  ] =
-    useState<Task | null>(
-      null,
-    );
+  ] = useState<Task | null>(null);
 
   const refreshTasks =
     async () => {
@@ -201,8 +202,8 @@ export function ProjectTaskProvider({
   const openUpdateModal = (
     task: Task,
   ) => {
+    console.log("OPEN UPDATE", task);
     setSelectedTask(task);
-
     setOpenUpdate(true);
   };
 
@@ -210,7 +211,6 @@ export function ProjectTaskProvider({
     task: Task,
   ) => {
     setSelectedTask(task);
-
     setOpenDelete(true);
   };
 
@@ -229,13 +229,13 @@ export function ProjectTaskProvider({
 
       setOpenCreate(false);
 
-      refreshTasks();
+      await refreshTasks();
     };
 
   const updateTask =
     async (
-      taskId,
-      data,
+      taskId: string,
+      data: UpdateTaskPayload,
     ) => {
       await taskService.update(
         taskId,
@@ -250,12 +250,12 @@ export function ProjectTaskProvider({
 
       setSelectedTask(null);
 
-      refreshTasks();
+      await refreshTasks();
     };
 
   const deleteTask =
     async (
-      taskId,
+      taskId: string,
     ) => {
       await taskService.delete(
         taskId,
@@ -269,7 +269,7 @@ export function ProjectTaskProvider({
 
       setSelectedTask(null);
 
-      refreshTasks();
+      await refreshTasks();
     };
 
   return (
@@ -304,6 +304,7 @@ export function ProjectTaskProvider({
         setOpenDelete,
 
         selectedTask,
+        setSelectedTask,
 
         openUpdateModal,
 

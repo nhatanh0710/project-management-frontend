@@ -19,6 +19,8 @@ export interface Task {
 
   project_id: string;
 
+  created_by: string;
+
   title: string;
 
   description: string;
@@ -39,7 +41,7 @@ export interface Task {
 
   progress?: number;
 
-  tag_ids: string[];
+tag_ids: Tag[];
 
   created_at: string;
 
@@ -104,4 +106,12 @@ export interface TaskListResponse {
 
     totalPages: number;
   };
+}
+
+export interface Tag {
+  _id: string;
+
+  name: string;
+
+  color?: string;
 }

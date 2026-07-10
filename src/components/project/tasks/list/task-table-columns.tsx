@@ -10,9 +10,21 @@ import TaskPriorityTag from '../task-priority-tag';
 import TaskStatusTag from '../task-status-tag';
 
 const { Text } = Typography;
+import { useRouter } from "next/navigation";
+import { useWorkspace } from "@/contexts/workspace.context";
+import { useCurrentProject } from "@/contexts/current-project.context";
 
-export const taskTableColumns: ColumnsType<Task> = [
-  {
+export function useTaskTableColumns(): ColumnsType<Task> {
+    const router = useRouter();
+
+    const { currentWorkspace } =
+        useWorkspace();
+
+    const { project } =
+        useCurrentProject();
+
+    return [
+        {
     title: 'Code',
     dataIndex: 'task_code',
     width: 110,
@@ -25,7 +37,19 @@ export const taskTableColumns: ColumnsType<Task> = [
     title: 'Title',
     dataIndex: 'title',
     render: (_, task) => (
-      <div>
+    <div
+        style={{
+            cursor: "pointer",
+        }}
+        onClick={() => {
+            if (!currentWorkspace || !project)
+                return;
+
+            router.push(
+                `/user/workspace/${currentWorkspace.workspaceId._id}/project/${project._id}/tasks/${task._id}`,
+            );
+        }}
+    >
         <Text strong>{task.title}</Text>
 
         <br />
@@ -85,3 +109,4 @@ export const taskTableColumns: ColumnsType<Task> = [
       ),
   },
 ];
+}

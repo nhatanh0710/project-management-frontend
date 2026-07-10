@@ -1,7 +1,11 @@
 'use client';
 
 import { ReactNode } from 'react';
-import { useParams } from 'next/navigation';
+
+import {
+  useParams,
+  usePathname,
+} from 'next/navigation';
 
 import { ProjectListProvider } from '@/contexts/project-list.context';
 
@@ -19,6 +23,11 @@ export default function WorkspaceDetailLayout({
 }: Props) {
   const { workspaceId } = useParams();
 
+  const pathname = usePathname();
+
+  const isTaskDetail =
+    pathname.includes('/tasks/');
+
   return (
     <ProjectListProvider
       workspaceId={workspaceId as string}
@@ -31,26 +40,35 @@ export default function WorkspaceDetailLayout({
           overflow: 'hidden',
         }}
       >
-        <ProjectSidebar />
+        {!isTaskDetail && (
+          <ProjectSidebar />
+        )}
 
         <main
           style={{
             flex: 1,
             minWidth: 0,
-            overflowY: 'scroll',
-            padding: 24,
-
+            overflowY: 'auto',
+            padding: isTaskDetail
+              ? 0
+              : 12,
           }}
         >
           {children}
         </main>
       </div>
 
-      <ProjectCreateModal
-        workspaceId={workspaceId as string}
-      />
+      {!isTaskDetail && (
+        <>
+          <ProjectCreateModal
+            workspaceId={
+              workspaceId as string
+            }
+          />
 
-      <ProjectUpdateModal />
+          <ProjectUpdateModal />
+        </>
+      )}
     </ProjectListProvider>
   );
 }

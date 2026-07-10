@@ -97,7 +97,7 @@ function ProjectTasksContent({
         </Card>
 
         <TaskCreateModal />
-        <TaskUpdateModal />
+        
         <TaskDeleteModal />
       </div>
     </App>

@@ -4,7 +4,7 @@ import { Table } from 'antd';
 
 import { useProjectTask } from '@/contexts/task.context';
 
-import { taskTableColumns } from './task-table-columns';
+import {  useTaskTableColumns } from './task-table-columns';
 
 export default function TaskList() {
   const {
@@ -14,12 +14,13 @@ export default function TaskList() {
     changePage,
     openUpdateModal,
   } = useProjectTask();
-
+const columns =
+    useTaskTableColumns();
   return (
     <Table
       rowKey="_id"
       loading={loading}
-      columns={taskTableColumns}
+      columns={columns}
       dataSource={tasks}
       pagination={{
         current: pagination.page,

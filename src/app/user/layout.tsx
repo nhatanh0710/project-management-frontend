@@ -37,7 +37,7 @@ export default function DashboardLayout({
                 flex: 1,
                 overflow: 'hidden', 
                 // dùng hidden thay vì scroll để tránh hiển thị scroll bar ngang khi nội dung vượt quá chiều rộng
-                padding: 12,
+                padding: 6,
               }}
             >
               {children}

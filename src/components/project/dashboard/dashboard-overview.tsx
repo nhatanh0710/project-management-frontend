@@ -9,7 +9,6 @@ import ProjectProgress from '../common/project-progress';
 
 import DashboardStatCard from './dashboard-stat-card';
 import DashboardRecentTask from './dashboard-recent-task';
-
 import styles from './styles.module.scss';
 
 export default function DashboardOverview() {

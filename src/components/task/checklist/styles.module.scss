@@ -1,0 +1,96 @@
+@import '@/styles/variables';
+/* =========================
+   Checklist Form
+========================= */
+
+.formCard {
+    margin-bottom: 24px;
+    padding: 20px;
+    border: 1px solid $border;
+    border-radius: 12px;
+    background: $surface;
+}
+
+.formActions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 8px;
+}
+
+/* =========================
+   Checklist List
+========================= */
+
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.empty {
+    padding: 48px 0;
+}
+
+/* =========================
+   Checklist Item
+========================= */
+
+.item {
+    padding: 18px;
+    border: 1px solid $border;
+    border-radius: 12px;
+    background: $surface;
+    transition: all .2s ease;
+
+    &:hover {
+        border-color: $primary;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, .06);
+    }
+}
+
+.completed {
+    opacity: .85;
+}
+
+.header {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.doneTitle {
+    text-decoration: line-through;
+    color: $text-secondary;
+}
+
+.description {
+    color: $text-secondary;
+    white-space: pre-wrap;
+    line-height: 1.6;
+}
+
+.meta {
+    margin-top: 16px;
+    padding-top: 12px;
+    border-top: 1px dashed $border;
+
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    font-size: 13px;
+}
+
+/* Input khi edit */
+
+.content :global(.ant-input),
+.content :global(.ant-input-textarea) {
+    border-radius: 8px;
+}

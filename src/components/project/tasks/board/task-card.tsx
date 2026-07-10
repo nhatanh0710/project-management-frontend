@@ -12,17 +12,21 @@ import {
   ClockCircleOutlined,
 } from '@ant-design/icons';
 
-import { useProjectTask } from '@/contexts/task.context';
-
 import type { Task } from '@/types/task.type';
 
 import TaskPriorityTag from '../task-priority-tag';
 
 import styles from '../styles.module.scss';
 
+import { useRouter } from 'next/navigation';
+
+import { useWorkspace } from '@/contexts/workspace.context';
+import { useCurrentProject } from '@/contexts/current-project.context';
+
 const { Text, Paragraph } =
   Typography;
 
+  
 interface Props {
   task: Task;
 }
@@ -30,8 +34,14 @@ interface Props {
 export default function TaskCard({
   task,
 }: Props) {
-  const { openUpdateModal } =
-    useProjectTask();
+ 
+    const router = useRouter();
+
+const { currentWorkspace } =
+  useWorkspace();
+
+const { project } =
+  useCurrentProject();
 
   return (
     <Card
@@ -42,9 +52,13 @@ export default function TaskCard({
           padding: 16,
         },
       }}
-      onClick={() =>
-        openUpdateModal(task)
-      }
+      onClick={() => {
+  if (!currentWorkspace || !project) return;
+
+  router.push(
+    `/user/workspace/${currentWorkspace.workspaceId._id}/project/${project._id}/tasks/${task._id}`,
+  );
+}}
     >
       <Space
         style={{
@@ -81,7 +95,7 @@ export default function TaskCard({
       </Paragraph>
 
       <div className={styles.taskMeta}>
-        <Space direction="vertical">
+        <Space orientation="vertical">
           <Text type="secondary">
             <ClockCircleOutlined />{' '}
             Estimate:{' '}

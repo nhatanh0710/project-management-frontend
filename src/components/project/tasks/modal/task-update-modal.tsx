@@ -14,7 +14,7 @@ import {
   Select,
 } from 'antd';
 
-import { useProjectTask } from '@/contexts/task.context';
+import { useCurrentTask } from '@/contexts/current-task.context';
 
 import {
   TaskPriority,
@@ -29,96 +29,66 @@ export default function TaskUpdateModal() {
   const [form] = Form.useForm();
 
   const {
+    task,
     openUpdate,
-    setOpenUpdate,
-    selectedTask,
+    closeUpdateModal,
     updateTask,
-  } = useProjectTask();
+  } = useCurrentTask();
 
   useEffect(() => {
-    if (
-      !openUpdate ||
-      !selectedTask
-    ) {
+    if (!openUpdate || !task) {
       return;
     }
 
     form.setFieldsValue({
-      title: selectedTask.title,
-
-      description:
-        selectedTask.description,
-
-      priority:
-        selectedTask.priority,
-
-      status:
-        selectedTask.status,
-
+      title: task.title,
+      description: task.description,
+      priority: task.priority,
+      status: task.status,
       estimate_time:
-        selectedTask.estimate_time,
-
+        task.estimate_time,
       actual_time:
-        selectedTask.actual_time,
-
+        task.actual_time,
       start_time:
-        selectedTask.start_time
-          ? dayjs(
-              selectedTask.start_time,
-            )
+        task.start_time
+          ? dayjs(task.start_time)
           : null,
-
-      deadline:
-        selectedTask.deadline
-          ? dayjs(
-              selectedTask.deadline,
-            )
-          : null,
+      deadline: task.deadline
+        ? dayjs(task.deadline)
+        : null,
     });
   }, [
+    task,
     openUpdate,
-    selectedTask,
     form,
   ]);
 
   const handleClose = () => {
     form.resetFields();
 
-    setOpenUpdate(false);
+    closeUpdateModal();
   };
 
   const handleSubmit = async (
     values: any,
   ) => {
-    if (!selectedTask) return;
+    if (!task) return;
 
-    await updateTask(
-      selectedTask._id,
-      {
-        title: values.title,
-
-        description:
-          values.description,
-
-        priority:
-          values.priority,
-
-        status:
-          values.status,
-
-        estimate_time:
-          values.estimate_time,
-
-        actual_time:
-          values.actual_time,
-
-        start_time:
-          values.start_time?.toISOString(),
-
-        deadline:
-          values.deadline?.toISOString(),
-      },
-    );
+    await updateTask({
+      title: values.title,
+      description:
+        values.description,
+      priority: values.priority,
+      status: values.status,
+      estimate_time:
+        values.estimate_time,
+      actual_time:
+        values.actual_time,
+      start_time:
+        values.start_time?.toISOString(),
+      deadline:
+        values.deadline?.toISOString(),
+    });
 
     form.resetFields();
   };

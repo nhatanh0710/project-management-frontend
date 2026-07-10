@@ -1,0 +1,155 @@
+.projectCard {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    padding: 20px;
+
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+}
+
+.cardTitle {
+    font-size: 12px;
+    font-weight: 600;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.projectContent {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.projectIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 44px;
+    height: 44px;
+
+    border-radius: 12px;
+
+    background: rgba(79, 70, 229, 0.08);
+
+    color: #4f46e5;
+    font-size: 20px;
+}
+
+.projectInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    flex: 1;
+}
+
+.projectName {
+    margin: 0 !important;
+    font-size: 16px !important;
+}
+
+.projectMeta {
+    font-size: 13px;
+    color: #64748b;
+}
+
+.backButton {
+    justify-content: flex-start;
+    padding: 0;
+}
+
+.taskExplorer {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    padding: 20px;
+
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, .04);
+}
+
+.taskList {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    max-height: 420px;
+    overflow-y: auto;
+}
+
+.taskItem {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    gap: 4px;
+
+    padding: 12px;
+
+    border: none;
+    border-radius: 10px;
+
+    background: transparent;
+
+    cursor: pointer;
+
+    transition: .2s;
+
+    &:hover {
+        background: #f8fafc;
+    }
+}
+
+.active {
+    background: rgba(79, 70, 229, .08);
+
+    .taskCode {
+        color: #4f46e5;
+    }
+}
+
+.taskCode {
+    font-size: 12px;
+    font-weight: 700;
+    color: #64748b;
+}
+
+.taskTitle {
+    text-align: left;
+    font-weight: 500;
+}
+
+.sidebar {
+    width: 220px;
+    flex-shrink: 0;
+}
+
+.sidebarCard {
+
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    background: #fff;
+
+    border: 1px solid #e2e8f0;
+
+    border-radius: 16px;
+
+    overflow: hidden;
+}
+
+.divider {
+    height: 1px;
+    background: #e2e8f0;
+}

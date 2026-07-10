@@ -18,7 +18,7 @@
 
     h2 {
         color: #ffffff;
-        font-size: 22px;
+        font-size: 20px;
         font-weight: 700;
         line-height: 1.2;
         margin-bottom: 4px;
@@ -26,7 +26,7 @@
 
     span {
         color: var(--sidebar-text-muted);
-        font-size: 13px;
+        font-size: 12px;
     }
 }
 
@@ -54,11 +54,11 @@
 
     svg {
         flex-shrink: 0;
-        font-size: 18px;
+        font-size: 16px;
     }
 
     span {
-        font-size: 15px;
+        font-size: 14px;
         font-weight: 500;
     }
 
@@ -101,7 +101,7 @@
     @include truncate;
 
     color: #fff;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 600;
 }
 
@@ -109,5 +109,5 @@
     margin-top: 4px;
 
     color: var(--sidebar-text-muted);
-    font-size: 13px;
+    font-size: 12px;
 }

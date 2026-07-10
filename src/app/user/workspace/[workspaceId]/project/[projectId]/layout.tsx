@@ -1,34 +1,45 @@
+'use client';
+
+import { ReactNode } from 'react';
+import { usePathname, useParams } from 'next/navigation';
+
 import { CurrentProjectProvider } from '@/contexts/current-project.context';
 
 import ProjectBreadcrumb from '@/components/project/common/project-breadcrumb';
-import ProjectHeader from '@/components/project/common/project-header';
 import ProjectNavigation from '@/components/project/common/project-navigation';
 
 interface Props {
-  children: React.ReactNode;
-  params: Promise<{
-    projectId: string;
-  }>;
+  children: ReactNode;
 }
 
-export default async function ProjectLayout({
+export default function ProjectLayout({
   children,
-  params,
 }: Props) {
-  const { projectId } = await params;
+  const pathname = usePathname();
+  const { projectId } = useParams();
+
+  const isTaskDetail =
+    pathname.includes('/tasks/') &&
+    !pathname.endsWith('/tasks');
 
   return (
-    <CurrentProjectProvider projectId={projectId}>
+    <CurrentProjectProvider
+      projectId={projectId as string}
+    >
       <div className="flex h-full flex-col">
-        <ProjectBreadcrumb />
 
-        {/* <ProjectHeader /> */}
+        {!isTaskDetail && (
+          <ProjectBreadcrumb />
+        )}
 
-        <ProjectNavigation />
+        {!isTaskDetail && (
+          <ProjectNavigation />
+        )}
 
         <main className="flex-1 overflow-y-auto px-8 py-6">
           {children}
         </main>
+
       </div>
     </CurrentProjectProvider>
   );

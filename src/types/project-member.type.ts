@@ -23,7 +23,7 @@ export interface ProjectMemberUser {
 
   email: string;
 
-  avatarUrl?: string;
+  avatar_url?: string;
 
   role?: string
 }
