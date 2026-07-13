@@ -66,11 +66,11 @@ function ChecklistContent() {
       <div className={styles.progressSection}>
         <div className={styles.progressHeader}>
           <Text strong>
-            Progress
+            Progress 
           </Text>
 
           <Text type="secondary">
-            {completed} / {checklists.length} completed
+            : {completed} / {checklists.length} completed
           </Text>
         </div>
 
@@ -90,18 +90,18 @@ function ChecklistContent() {
   );
 }
 
-export default function ChecklistPage({
-  params,
-}: {
-  params: {
-    taskId: string;
-  };
-}) {
-  return (
-    <ChecklistProvider
-      taskId={params.taskId}
-    >
-      <ChecklistContent />
-    </ChecklistProvider>
-  );
+
+
+import { useParams } from 'next/navigation';
+
+export default function ChecklistPage() {
+    const params = useParams();
+
+    const taskId = params.taskId as string;
+
+    return (
+        <ChecklistProvider taskId={taskId}>
+            <ChecklistContent />
+        </ChecklistProvider>
+    );
 }

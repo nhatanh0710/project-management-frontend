@@ -1,30 +1,57 @@
 import { api } from '@/services/api';
 
-import { TaskMember } from '@/types/task-member.type';
+import {
+  TaskMember,
+  AvailableTaskMember,
+} from '@/types/task-member.type';
 
-const BASE_URL = '/task-members';
+const BASE_URL = '/tasks';
 
 export const taskMemberService = {
   // ================= GET MEMBERS =================
 
-  getMembers: async (
+  async getMembers(
     taskId: string,
-  ): Promise<TaskMember[]> => {
+  ): Promise<TaskMember[]> {
     const res = await api.get(
-      `${BASE_URL}/${taskId}`,
+      `${BASE_URL}/${taskId}/members`,
     );
 
     return res.data;
   },
 
-  // ================= ADD MEMBERS =================
+  // ================= GET AVAILABLE MEMBERS =================
 
-  addMembers: async (
+  async getAvailableMembers(
+    taskId: string,
+  ): Promise<AvailableTaskMember[]> {
+    const res = await api.get(
+      `${BASE_URL}/${taskId}/members/available`,
+    );
+
+    return res.data;
+  },
+
+  // ================= GET LEADER =================
+
+  async getLeader(
+    taskId: string,
+  ): Promise<TaskMember | null> {
+    const res = await api.get(
+      `${BASE_URL}/${taskId}/members/leader`,
+    );
+
+    return res.data;
+  },
+
+  // ================= ASSIGN MEMBERS =================
+
+  async assignMembers(
     taskId: string,
     userIds: string[],
-  ) => {
+  ) {
     const res = await api.post(
-      `${BASE_URL}/${taskId}`,
+      `${BASE_URL}/${taskId}/members`,
       {
         user_ids: userIds,
       },
@@ -35,12 +62,12 @@ export const taskMemberService = {
 
   // ================= UPDATE LEADER =================
 
-  updateLeader: async (
+  async updateLeader(
     taskId: string,
     userId: string,
-  ) => {
+  ) {
     const res = await api.patch(
-      `${BASE_URL}/${taskId}/leader/${userId}`,
+      `${BASE_URL}/${taskId}/members/${userId}/leader`,
     );
 
     return res.data;
@@ -48,12 +75,12 @@ export const taskMemberService = {
 
   // ================= REMOVE MEMBER =================
 
-  removeMember: async (
+  async removeMember(
     taskId: string,
     userId: string,
-  ) => {
+  ) {
     const res = await api.delete(
-      `${BASE_URL}/${taskId}/${userId}`,
+      `${BASE_URL}/${taskId}/members/${userId}`,
     );
 
     return res.data;

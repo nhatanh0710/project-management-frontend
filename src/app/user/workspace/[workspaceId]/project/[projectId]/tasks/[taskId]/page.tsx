@@ -3,7 +3,7 @@
 import TaskAssignment from '@/components/task/details/task-assignment';
 import TaskDescription from '@/components/task/details/task-description';
 import TaskInformation from '@/components/task/details/task-information';
-import TaskTags from '@/components/task/details/task-tags';
+import TaskTags from '@/components/task/tag/task-tags';
 
 export default function TaskDetailPage() {
   return (

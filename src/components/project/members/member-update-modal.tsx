@@ -171,7 +171,7 @@ export default function MemberUpdateModal() {
         <div className={styles.member}>
           <Avatar
             size={54}
-            src={user.avatarUrl}
+            src={user.avatar_url}
             icon={<UserOutlined />}
           />
 

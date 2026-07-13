@@ -40,28 +40,23 @@ export default function TaskHeader() {
   return (
     <header className={styles.header}>
       <div className={styles.left}>
-        <Text className={styles.code}>
-          {task.task_code}
-        </Text>
+        <div className={styles.titleRow}>
+  <Text className={styles.code}>{task.task_code}</Text>
 
-        <Title
-          level={3}
-          className={styles.title}
-        >
-          {task.title}
-        </Title>
+  <Title level={3} className={styles.title}>
+    {task.title}
+  </Title>
+</div>
 
-        <Space size={8}>
-          <TaskPriorityTag
-            priority={task.priority}
-          />
+<Space size={8}>
+  <TaskPriorityTag priority={task.priority} />
+  <TaskStatusTag status={task.status} />
+</Space>
 
-          <TaskStatusTag
-            status={task.status}
-          />
-        </Space>
+         
       </div>
 
+        <div className={styles.right}>
       <Dropdown
         trigger={['click']}
         menu={{
@@ -90,6 +85,7 @@ export default function TaskHeader() {
           icon={<EllipsisOutlined />}
         />
       </Dropdown>
+      </div>
     </header>
   );
 }

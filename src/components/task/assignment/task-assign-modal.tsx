@@ -135,7 +135,7 @@ export default function TaskAssignModal({
               size={28}
               src={
                 member.user
-                  .avatarUrl
+                  .avatar_url
               }
               icon={
                 <UserOutlined />
@@ -176,7 +176,7 @@ export default function TaskAssignModal({
       try {
         setLoading(true);
 
-        await taskMemberService.addMembers(
+        await taskMemberService.assignMembers(
           task._id,
           selected,
         );
