@@ -8,7 +8,7 @@ export default function LoginPage() {
         margin: '100px auto',
       }}
     >
-      <h1>Đăng nhập</h1>
+      <h1>Windsurf: Sign In</h1>
 
       <LoginForm />
     </div>

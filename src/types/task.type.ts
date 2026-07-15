@@ -41,7 +41,7 @@ export interface Task {
 
   progress?: number;
 
-tag_ids: Tag[];
+    tag_ids: Tag[];
 
   created_at: string;
 

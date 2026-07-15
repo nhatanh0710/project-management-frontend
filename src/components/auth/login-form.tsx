@@ -19,11 +19,11 @@ import {
 
 // Định nghĩa schema xác thực cho form đăng nhập
 const loginSchema = z.object({
-  email: z.email('Email không hợp lệ'),
+  email: z.email('Invalid email'),
 
   password: z
     .string()
-    .min(6, 'Mật khẩu tối thiểu 6 ký tự'),
+    .min(6, 'Password must be at least 6 characters'),
 });
 
 // Định nghĩa kiểu dữ liệu cho giá trị của form đăng nhập dựa trên schema
@@ -70,7 +70,7 @@ export default function LoginForm() {
       );
 
       message.success(
-        'Đăng nhập thành công',
+        'Sign in successful',
       );
 
       router.push('/');
@@ -78,7 +78,7 @@ export default function LoginForm() {
       message.error(
         error?.response?.data
           ?.message ||
-          'Đăng nhập thất bại',
+          'Sign in failed',
       );
     }
   };
@@ -107,14 +107,15 @@ export default function LoginForm() {
           render={({ field }) => (
             <Input
               {...field}
-              placeholder="Nhập email"
+              placeholder="Enter email"
+              autoComplete="email"
             />
           )}
         />
       </Form.Item>
 
       <Form.Item
-        label="Mật khẩu"
+        label="Password"
         validateStatus={
           errors.password
             ? 'error'
@@ -130,7 +131,8 @@ export default function LoginForm() {
           render={({ field }) => (
             <Input.Password
               {...field}
-              placeholder="Nhập mật khẩu"
+              placeholder="Enter password"
+              autoComplete="current-password"
             />
           )}
         />
@@ -142,7 +144,7 @@ export default function LoginForm() {
         block
         loading={isSubmitting}
       >
-        Đăng nhập
+        Sign In
       </Button>
     </Form>
   );

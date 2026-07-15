@@ -21,7 +21,7 @@ import {
   TaskStatus,
 } from '@/types/task.type';
 
-import styles from '../styles.module.scss';
+import styles from './styles.module.scss';
 
 const { TextArea } = Input;
 
@@ -36,23 +36,18 @@ export default function TaskUpdateModal() {
   } = useCurrentTask();
 
   useEffect(() => {
-    if (!openUpdate || !task) {
-      return;
-    }
+    if (!openUpdate || !task) return;
 
     form.setFieldsValue({
       title: task.title,
       description: task.description,
-      priority: task.priority,
       status: task.status,
-      estimate_time:
-        task.estimate_time,
-      actual_time:
-        task.actual_time,
-      start_time:
-        task.start_time
-          ? dayjs(task.start_time)
-          : null,
+      priority: task.priority,
+      estimate_time: task.estimate_time,
+      actual_time: task.actual_time,
+      start_time: task.start_time
+        ? dayjs(task.start_time)
+        : null,
       deadline: task.deadline
         ? dayjs(task.deadline)
         : null,
@@ -65,21 +60,19 @@ export default function TaskUpdateModal() {
 
   const handleClose = () => {
     form.resetFields();
-
     closeUpdateModal();
   };
 
   const handleSubmit = async (
     values: any,
   ) => {
-    if (!task) return;
-
     await updateTask({
       title: values.title,
       description:
         values.description,
-      priority: values.priority,
       status: values.status,
+      priority:
+        values.priority,
       estimate_time:
         values.estimate_time,
       actual_time:
@@ -98,7 +91,7 @@ export default function TaskUpdateModal() {
       open={openUpdate}
       title="Update Task"
       footer={null}
-      width={700}
+      width={760}
       destroyOnHidden
       onCancel={handleClose}
     >
@@ -109,7 +102,7 @@ export default function TaskUpdateModal() {
         onFinish={handleSubmit}
       >
         <Form.Item
-          label="Title"
+          label="Task Title"
           name="title"
           rules={[
             {
@@ -119,14 +112,17 @@ export default function TaskUpdateModal() {
             },
           ]}
         >
-          <Input />
+          <Input placeholder="Enter task title" />
         </Form.Item>
 
         <Form.Item
           label="Description"
           name="description"
         >
-          <TextArea rows={4} />
+          <TextArea
+            rows={5}
+            placeholder="Describe this task..."
+          />
         </Form.Item>
 
         <div className={styles.row}>
@@ -148,8 +144,7 @@ export default function TaskUpdateModal() {
                     TaskStatus.IN_PROGRESS,
                 },
                 {
-                  label:
-                    'Review',
+                  label: 'Review',
                   value:
                     TaskStatus.REVIEW,
                 },
@@ -197,7 +192,7 @@ export default function TaskUpdateModal() {
 
         <div className={styles.row}>
           <Form.Item
-            label="Estimate (hours)"
+            label="Estimated Time (hours)"
             name="estimate_time"
           >
             <InputNumber
@@ -209,7 +204,7 @@ export default function TaskUpdateModal() {
           </Form.Item>
 
           <Form.Item
-            label="Actual (hours)"
+            label="Actual Time (hours)"
             name="actual_time"
           >
             <InputNumber
@@ -231,18 +226,88 @@ export default function TaskUpdateModal() {
               className={
                 styles.full
               }
+              placeholder="Select start time"
+              disabledDate={(
+                current,
+              ) => {
+                const deadline =
+                  form.getFieldValue(
+                    'deadline',
+                  );
+
+                return (
+                  deadline &&
+                  current &&
+                  current.isAfter(
+                    deadline,
+                    'day',
+                  )
+                );
+              }}
             />
           </Form.Item>
 
           <Form.Item
             label="Deadline"
             name="deadline"
+            dependencies={[
+              'start_time',
+            ]}
+            rules={[
+              ({
+                getFieldValue,
+              }) => ({
+                validator(
+                  _,
+                  value,
+                ) {
+                  const start =
+                    getFieldValue(
+                      'start_time',
+                    );
+
+                  if (
+                    !start ||
+                    !value ||
+                    value.isAfter(
+                      start,
+                    )
+                  ) {
+                    return Promise.resolve();
+                  }
+
+                  return Promise.reject(
+                    new Error(
+                      'Deadline must be after start time',
+                    ),
+                  );
+                },
+              }),
+            ]}
           >
             <DatePicker
               showTime
               className={
                 styles.full
               }
+              placeholder="Select deadline"
+              disabledDate={(
+                current,
+              ) => {
+                const start =
+                  form.getFieldValue(
+                    'start_time',
+                  );
+
+                return (
+                  start &&
+                  current &&
+                  current.isBefore(
+                    start,
+                    'day',
+                  )
+                );
+              }}
             />
           </Form.Item>
         </div>
@@ -253,6 +318,7 @@ export default function TaskUpdateModal() {
           }
         >
           <Button
+            size="large"
             onClick={handleClose}
           >
             Cancel
@@ -261,6 +327,7 @@ export default function TaskUpdateModal() {
           <Button
             type="primary"
             htmlType="submit"
+            size="large"
           >
             Save Changes
           </Button>

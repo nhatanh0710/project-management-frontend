@@ -1,14 +1,22 @@
 'use client';
 
-import { Form, Input, Modal, Select, DatePicker, InputNumber, Button } from 'antd';
+import dayjs from 'dayjs';
+
+import {
+  Button,
+  DatePicker,
+  Form,
+  Input,
+  InputNumber,
+  Modal,
+  Select,
+} from 'antd';
 
 import { useProjectTask } from '@/contexts/task.context';
 
-import {
-  TaskPriority,
-} from '@/types/task.type';
+import { TaskPriority } from '@/types/task.type';
 
-import styles from '../styles.module.scss';
+import styles from './styles.module.scss';
 
 const { TextArea } = Input;
 
@@ -33,7 +41,8 @@ export default function TaskCreateModal() {
       title: values.title,
       description: values.description,
       priority: values.priority,
-      estimate_time: values.estimate_time,
+      estimate_time:
+        values.estimate_time,
       start_time:
         values.start_time?.toISOString(),
       deadline:
@@ -48,7 +57,7 @@ export default function TaskCreateModal() {
       open={openCreate}
       title="Create Task"
       footer={null}
-      width={700}
+      width={760}
       destroyOnHidden
       onCancel={handleClose}
     >
@@ -59,16 +68,19 @@ export default function TaskCreateModal() {
         onFinish={handleSubmit}
       >
         <Form.Item
-          label="Title"
+          label="Task Title"
           name="title"
           rules={[
             {
               required: true,
-              message: 'Task title is required',
+              message:
+                'Task title is required',
             },
           ]}
         >
-          <Input />
+          <Input
+            placeholder="Enter task title"
+          />
         </Form.Item>
 
         <Form.Item
@@ -76,7 +88,8 @@ export default function TaskCreateModal() {
           name="description"
         >
           <TextArea
-            rows={4}
+            rows={5}
+            placeholder="Describe this task..."
           />
         </Form.Item>
 
@@ -89,10 +102,12 @@ export default function TaskCreateModal() {
             }
           >
             <Select
+              placeholder="Select priority"
               options={[
                 {
                   label: 'Low',
-                  value: TaskPriority.LOW,
+                  value:
+                    TaskPriority.LOW,
                 },
                 {
                   label: 'Medium',
@@ -101,7 +116,8 @@ export default function TaskCreateModal() {
                 },
                 {
                   label: 'High',
-                  value: TaskPriority.HIGH,
+                  value:
+                    TaskPriority.HIGH,
                 },
                 {
                   label: 'Urgent',
@@ -113,13 +129,14 @@ export default function TaskCreateModal() {
           </Form.Item>
 
           <Form.Item
-            label="Estimate (hours)"
+            label="Estimated Time (hours)"
             name="estimate_time"
             initialValue={0}
           >
             <InputNumber
               min={0}
               className={styles.full}
+              placeholder="0"
             />
           </Form.Item>
         </div>
@@ -132,22 +149,95 @@ export default function TaskCreateModal() {
             <DatePicker
               showTime
               className={styles.full}
+              placeholder="Select start time"
+              disabledDate={(
+                current,
+              ) => {
+                const deadline =
+                  form.getFieldValue(
+                    'deadline',
+                  );
+
+                return (
+                  deadline &&
+                  current &&
+                  current.isAfter(
+                    deadline,
+                    'day',
+                  )
+                );
+              }}
             />
           </Form.Item>
 
           <Form.Item
             label="Deadline"
             name="deadline"
+            dependencies={[
+              'start_time',
+            ]}
+            rules={[
+              ({
+                getFieldValue,
+              }) => ({
+                validator(
+                  _,
+                  value,
+                ) {
+                  const start =
+                    getFieldValue(
+                      'start_time',
+                    );
+
+                  if (
+                    !start ||
+                    !value ||
+                    value.isAfter(
+                      start,
+                    )
+                  ) {
+                    return Promise.resolve();
+                  }
+
+                  return Promise.reject(
+                    new Error(
+                      'Deadline must be after start time',
+                    ),
+                  );
+                },
+              }),
+            ]}
           >
             <DatePicker
               showTime
               className={styles.full}
+              placeholder="Select deadline"
+              disabledDate={(
+                current,
+              ) => {
+                const start =
+                  form.getFieldValue(
+                    'start_time',
+                  );
+
+                return (
+                  start &&
+                  current &&
+                  current.isBefore(
+                    start,
+                    'day',
+                  )
+                );
+              }}
             />
           </Form.Item>
         </div>
 
-        <div className={styles.footer}>
+        <div
+          className={styles.footer}
+        >
           <Button
+            size="large"
             onClick={handleClose}
           >
             Cancel
@@ -156,6 +246,7 @@ export default function TaskCreateModal() {
           <Button
             type="primary"
             htmlType="submit"
+            size="large"
           >
             Create Task
           </Button>

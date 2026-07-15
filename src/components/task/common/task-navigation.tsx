@@ -57,12 +57,12 @@ export default function TaskNavigation() {
     {
       label: 'Comments',
       icon: <CommentOutlined />,
-      href: `/user/workspace/${workspaceId}/project/${projectId}/tasks/${taskId}/comments`,
+      href: `/user/workspace/${workspaceId}/project/${projectId}/tasks/${taskId}/comment`,
     },
     {
       label: 'Attachments',
       icon: <PaperClipOutlined />,
-      href: `/user/workspace/${workspaceId}/project/${projectId}/tasks/${taskId}/attachments`,
+      href: `/user/workspace/${workspaceId}/project/${projectId}/tasks/${taskId}/attachment`,
     },
   ];
 

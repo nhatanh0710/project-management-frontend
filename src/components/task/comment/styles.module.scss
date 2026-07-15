@@ -1,0 +1,157 @@
+/* ==========================================================
+   COMMON
+========================================================== */
+
+.card {
+    border-radius: 12px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 24px;
+}
+
+/* ==========================================================
+   COMMENT LIST
+========================================================== */
+
+.commentList {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.loading {
+    display: flex;
+    justify-content: center;
+    padding: 48px 0;
+}
+
+.commentItems {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.pagination {
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* ==========================================================
+   COMMENT EDITOR
+========================================================== */
+
+.commentEditor {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+
+    padding: 20px;
+
+    background: #ffffff;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+}
+
+.editorContent {
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.editorFooter {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+/* ==========================================================
+   COMMENT ITEM
+========================================================== */
+
+.commentItem {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.commentBody {
+    flex: 1;
+
+    background: #ffffff;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+
+    padding: 18px;
+
+    transition: all .2s ease;
+}
+
+.commentBody:hover {
+    border-color: #c7d2fe;
+
+    box-shadow: 0 4px 14px rgba(79, 70, 229, .08);
+}
+
+.commentHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 14px;
+}
+
+.userInfo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.date {
+    font-size: 12px;
+}
+
+.commentContent {
+    white-space: pre-wrap;
+    word-break: break-word;
+
+    line-height: 1.75;
+
+    color: #374151;
+
+    margin-bottom: 14px;
+}
+
+/* ==========================================================
+   COMMENT ACTION
+========================================================== */
+
+.actionButtons {
+    opacity: 0;
+
+    transition: opacity .2s ease;
+}
+
+.commentBody:hover .actionButtons {
+    opacity: 1;
+}
+
+/* ==========================================================
+   REACTION BAR
+========================================================== */
+
+.reactionBar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+
+    margin-top: 14px;
+}

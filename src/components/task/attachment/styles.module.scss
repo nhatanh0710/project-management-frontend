@@ -1,0 +1,54 @@
+/* =====================================================
+   Attachment Page
+===================================================== */
+
+.card {
+    border-radius: 12px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+/* =====================================================
+   Attachment List
+===================================================== */
+
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* =====================================================
+   Attachment Item
+===================================================== */
+
+.attachmentItem {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+
+    padding: 16px;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+
+    background: white;
+}
+
+.body {
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.actions {
+    display: flex;
+    gap: 8px;
+}

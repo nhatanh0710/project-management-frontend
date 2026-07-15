@@ -29,7 +29,7 @@ import { TaskMember } from '@/types/task-member.type';
 import TaskAssignModal from '../assignment/task-assign-modal';
 import TaskMemberDropdown from '../assignment/task-member-dropdown';
 
-import styles from './styles.module.scss';
+import styles from '../details/styles.module.scss';
 
 const { Title, Text } = Typography;
 
@@ -101,7 +101,7 @@ export default function TaskAssignment() {
               setOpenAssign(true)
             }
           >
-            Assign Member
+            Member
           </Button>
         </div>
 
