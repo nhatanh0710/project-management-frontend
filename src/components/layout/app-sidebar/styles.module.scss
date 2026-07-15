@@ -1,27 +1,44 @@
 @use '@/styles/mixins.scss' as *;
 
+/* =====================================================
+   Sidebar
+===================================================== */
+
 .sidebar {
-    width: 160px;
-    height: auto;
+    width: 180px;
+    height: 100vh;
+
     display: flex;
     flex-direction: column;
+
+    padding: 16px 12px;
 
     background: var(--sidebar-bg);
     border-right: 1px solid var(--sidebar-border);
 
-    padding: 20px 16px;
+    overflow: hidden;
+    box-sizing: border-box;
 }
 
+/* =====================================================
+   Logo
+===================================================== */
+
 .logo {
-    margin-bottom: 36px;
-    padding: 0 8px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    margin-bottom: 20px;
+
+    padding: 0 6px;
 
     h2 {
-        color: #ffffff;
+        margin: 0;
+
+        color: #fff;
         font-size: 20px;
         font-weight: 700;
-        line-height: 1.2;
-        margin-bottom: 4px;
     }
 
     span {
@@ -30,18 +47,40 @@
     }
 }
 
+.logoIcon {
+    width: 46px;
+    height: 46px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 12px;
+
+    background: var(--sidebar-active);
+
+    color: white;
+
+    font-size: 18px;
+    font-weight: 700;
+}
+
+/* =====================================================
+   Menu
+===================================================== */
+
 .menu {
     display: flex;
     flex-direction: column;
     gap: 6px;
+
+    margin-bottom: 10px;
 }
 
 .item {
     display: flex;
     align-items: center;
-    gap: 12px;
-
-    width: 100%;
+    gap: 10px;
 
     padding: 12px 14px;
 
@@ -49,11 +88,9 @@
 
     color: var(--sidebar-text);
 
-    cursor: pointer;
-    transition: var(--transition);
+    transition: .2s;
 
     svg {
-        flex-shrink: 0;
         font-size: 16px;
     }
 
@@ -65,8 +102,6 @@
     &:hover {
         background: var(--sidebar-hover);
         color: var(--sidebar-text-hover);
-
-        transform: translateX(2px);
     }
 }
 
@@ -74,40 +109,70 @@
     background: var(--sidebar-active);
     color: var(--sidebar-text-active);
 
-    font-weight: 600;
-
-    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
-
-    &:hover {
-        background: var(--sidebar-active);
-        color: var(--sidebar-text-active);
-        transform: none;
-    }
+    box-shadow: 0 6px 14px rgba(79, 70, 229, .25);
 }
 
+/* =====================================================
+   Workspace
+===================================================== */
+
+.workspace {
+    flex: 1;
+
+    min-height: 0;
+
+    overflow-y: auto;
+
+    margin-top: 12px;
+
+    padding-right: 4px;
+}
+
+/* =====================================================
+   User
+===================================================== */
+
 .user {
-    margin-top: auto;
+    margin-top: 12px;
 
-    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
 
-    background: var(--sidebar-hover);
+    width: 100%;
 
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 10px;
+
+    box-sizing: border-box;
 
     border-radius: 14px;
+
+    background: rgba(255, 255, 255, .05);
+
+    border: 1px solid rgba(255, 255, 255, .08);
+}
+
+.info {
+    flex: 1;
+
+    min-width: 0;
 }
 
 .name {
     @include truncate;
 
     color: #fff;
+
     font-size: 14px;
     font-weight: 600;
 }
 
 .role {
-    margin-top: 4px;
+    @include truncate;
+
+    margin-top: 3px;
 
     color: var(--sidebar-text-muted);
+
     font-size: 12px;
 }

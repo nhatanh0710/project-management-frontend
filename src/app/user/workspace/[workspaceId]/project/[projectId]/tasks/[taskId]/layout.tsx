@@ -46,14 +46,13 @@ export default function TaskLayout({
 
         <TaskHeader />
 
-        <main className="flex-1 overflow-y-auto p-6">
+        <main className="flex-1 overflow-y-auto px-5 py-3">
+    <TaskNavigation />
 
-            <TaskNavigation />
-
-            {children}
-
-        </main>
-
+    <div className="mx-auto max-w-7xl">
+        {children}
+    </div>
+</main>
     </div>
 
 </div>

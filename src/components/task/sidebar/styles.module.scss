@@ -1,28 +1,67 @@
+/* ==========================================================
+   Sidebar
+========================================================== */
+
+.sidebar {
+    width: 200px;
+    flex-shrink: 0;
+
+   
+
+    background: #f8fafc;
+    border-right: 1px solid #e2e8f0;
+}
+
+.sidebarCard {
+    position: sticky;
+    top: 16px;
+
+    display: flex;
+    flex-direction: column;
+
+    height: calc(100vh - 32px);
+
+    background: #fff;
+
+    border: 1px solid #e5e7eb;
+   
+
+    overflow: hidden;
+
+    box-shadow: 0 4px 12px rgba(15, 23, 42, .05);
+}
+
+.divider {
+    height: 1px;
+    background: #eef2f7;
+}
+
+/* ==========================================================
+   Project Card
+========================================================== */
+
 .projectCard {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 16px;
 
-    padding: 20px;
-
-    background: #ffffff;
-    border: 1px solid #e2e8f0;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+    padding: 18px;
 }
 
 .cardTitle {
-    font-size: 12px;
-    font-weight: 600;
-    color: #64748b;
+    font-size: 11px;
+    font-weight: 700;
+
     text-transform: uppercase;
-    letter-spacing: 0.08em;
+    letter-spacing: .08em;
+
+    color: #94a3b8;
 }
 
 .projectContent {
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 12px;
 }
 
 .projectIcon {
@@ -30,32 +69,37 @@
     align-items: center;
     justify-content: center;
 
-    width: 44px;
-    height: 44px;
+    width: 42px;
+    height: 42px;
 
-    border-radius: 12px;
+    border-radius: 10px;
 
-    background: rgba(79, 70, 229, 0.08);
+    background: rgba(79, 70, 229, .08);
 
     color: #4f46e5;
-    font-size: 20px;
+
+    font-size: 18px;
 }
 
 .projectInfo {
+    flex: 1;
+
+    min-width: 0;
+
     display: flex;
     flex-direction: column;
-    gap: 4px;
-
-    flex: 1;
+    gap: 2px;
 }
 
 .projectName {
     margin: 0 !important;
-    font-size: 16px !important;
+
+    font-size: 15px !important;
+    font-weight: 600 !important;
 }
 
 .projectMeta {
-    font-size: 13px;
+    font-size: 12px;
     color: #64748b;
 }
 
@@ -64,45 +108,65 @@
     padding: 0;
 }
 
+/* ==========================================================
+   Explorer
+========================================================== */
+
 .taskExplorer {
+    flex: 1;
+
     display: flex;
     flex-direction: column;
-    gap: 16px;
 
-    padding: 20px;
-
-    background: #fff;
-    border: 1px solid #e2e8f0;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(15, 23, 42, .04);
+    overflow: hidden;
+    padding: 16px;
 }
 
 .taskList {
+    flex: 1;
+
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 4px;
 
-    max-height: 420px;
+    padding: 6px;
+
     overflow-y: auto;
 }
+
+/* scrollbar */
+
+.taskList::-webkit-scrollbar {
+    width: 6px;
+}
+
+.taskList::-webkit-scrollbar-thumb {
+    background: #d1d5db;
+    border-radius: 999px;
+}
+
+/* ==========================================================
+   Task Item
+========================================================== */
 
 .taskItem {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
 
-    gap: 4px;
+    gap: 2px;
 
-    padding: 12px;
+    width: 100%;
 
-    border: none;
+    padding: 8px 10px;
+
     border-radius: 10px;
 
     background: transparent;
 
-    cursor: pointer;
-
     transition: .2s;
+
+    cursor: pointer;
 
     &:hover {
         background: #f8fafc;
@@ -115,41 +179,30 @@
     .taskCode {
         color: #4f46e5;
     }
+
+    .taskTitle {
+        color: #4f46e5;
+    }
 }
 
 .taskCode {
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 700;
-    color: #64748b;
+
+    color: #94a3b8;
 }
 
 .taskTitle {
+    width: 100%;
+
     text-align: left;
+
+    font-size: 14px;
     font-weight: 500;
-}
 
-.sidebar {
-    width: 200px;
-    flex-shrink: 0;
-}
-
-.sidebarCard {
-
-    height: 100%;
-
-    display: flex;
-    flex-direction: column;
-
-    background: #fff;
-
-    border: 1px solid #e2e8f0;
-
-    border-radius: 16px;
+    color: #1e293b;
 
     overflow: hidden;
-}
-
-.divider {
-    height: 1px;
-    background: #e2e8f0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }

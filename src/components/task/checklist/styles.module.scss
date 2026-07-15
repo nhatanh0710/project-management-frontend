@@ -4,17 +4,25 @@
 ========================= */
 
 .formCard {
-    margin-bottom: 24px;
-    padding: 20px;
+    margin-bottom: 18px;
+
+    padding: 16px;
+
     border: 1px solid $border;
-    border-radius: 12px;
+    border-radius: 10px;
+
     background: $surface;
 }
 
 .formActions {
     display: flex;
     justify-content: flex-end;
-    margin-top: 8px;
+
+    margin-top: 12px;
+}
+
+.formActions :global(.ant-btn) {
+    min-width: 130px;
 }
 
 /* =========================
@@ -36,7 +44,7 @@
 ========================= */
 
 .item {
-    padding: 18px;
+    padding: 10px 12px;
     border: 1px solid $border;
     border-radius: 12px;
     background: $surface;
@@ -54,15 +62,15 @@
 
 .header {
     display: flex;
-    align-items: flex-start;
-    gap: 16px;
+        align-items: flex-start;
+        gap: 12px;
 }
 
 .content {
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 4px;
 }
 
 .doneTitle {
@@ -77,8 +85,8 @@
 }
 
 .meta {
-    margin-top: 16px;
-    padding-top: 12px;
+    margin-top: 10px;
+    padding-top: 8px;
     border-top: 1px dashed $border;
 
     display: flex;

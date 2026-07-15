@@ -41,17 +41,19 @@ export default function TaskHeader() {
     <header className={styles.header}>
       <div className={styles.left}>
         <div className={styles.titleRow}>
-  <Text className={styles.code}>{task.task_code}</Text>
+  
 
   <Title level={3} className={styles.title}>
     {task.title}
   </Title>
-</div>
-
-<Space size={8}>
+    <Text className={styles.code}>{task.task_code}</Text>
+  <Space size={8}>
   <TaskPriorityTag priority={task.priority} />
   <TaskStatusTag status={task.status} />
 </Space>
+</div>
+
+
 
          
       </div>

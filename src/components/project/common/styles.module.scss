@@ -3,13 +3,13 @@
     justify-content: space-between;
     align-items: flex-start;
 
-    padding: 16px 20px;
+    padding: 10px 12px;
 
     background: #fff;
     border: 1px solid #e2e8f0;
     border-radius: 12px;
 
-    margin-bottom: 12px;
+    margin-bottom: 8px;
 }
 
 .left {
@@ -21,7 +21,7 @@
 .title {
     margin: 0;
 
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 700;
     line-height: 1.2;
 
@@ -48,7 +48,7 @@
 .right {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
 }
 
 .dateItem {
@@ -92,7 +92,7 @@
     align-items: center;
     gap: 6px;
 
-    margin-bottom: 16px;
+    margin-bottom: 10px;
 
     padding: 6px;
 

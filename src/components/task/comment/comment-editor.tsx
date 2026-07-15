@@ -20,112 +20,68 @@ const { TextArea } = Input;
 export default function CommentEditor() {
   const { user } = useAuth();
 
-  const { createComment } =
-    useTaskComment();
+  const { createComment } = useTaskComment();
 
-  const [content, setContent] =
-    useState('');
+  const [content, setContent] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  const [loading, setLoading] =
-    useState(false);
+  const handleSubmit = async () => {
+    const value = content.trim();
 
-  const handleSubmit =
-    async () => {
-      const value =
-        content.trim();
+    if (!value || loading) return;
 
-      if (!value || loading) {
-        return;
-      }
+    try {
+      setLoading(true);
 
-      try {
-        setLoading(true);
+      await createComment(value);
 
-        await createComment(
-          value,
-        );
-
-        setContent('');
-      } finally {
-        setLoading(false);
-      }
-    };
+      setContent('');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleKeyDown = async (
     e: KeyboardEvent<HTMLTextAreaElement>,
   ) => {
-    if (
-      e.key === 'Enter' &&
-      !e.shiftKey
-    ) {
+    if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
-
       await handleSubmit();
     }
   };
 
   return (
-    <div
-      className={
-        styles.commentEditor
-      }
-    >
+    <div className={styles.commentEditor}>
       <Avatar
+        size={34}
         src={user?.avatar_url}
-        size={40}
       >
-        {user?.name
-          ?.charAt(0)
-          ?.toUpperCase()}
+        {user?.name?.charAt(0)?.toUpperCase()}
       </Avatar>
 
-      <div
-        className={
-          styles.editorContent
-        }
-      >
+      <div className={styles.editorContent}>
         <TextArea
           value={content}
           autoSize={{
-            minRows: 3,
-            maxRows: 6,
+            minRows: 2,
+            maxRows: 5,
           }}
           maxLength={3000}
           placeholder="Write a comment..."
           onChange={(e) =>
-            setContent(
-              e.target.value,
-            )
+            setContent(e.target.value)
           }
-          onKeyDown={
-            handleKeyDown
-          }
+          onKeyDown={handleKeyDown}
         />
 
-        <div
-          className={
-            styles.editorFooter
-          }
-        >
-          {/* <span>
-            {
-              content.length
-            }
-            /3000
-          </span> */}
-
+        <div className={styles.editorFooter}>
           <Button
+            size="small"
             type="primary"
-            icon={
-              <SendOutlined />
-            }
+            icon={<SendOutlined />}
             loading={loading}
-            disabled={
-              !content.trim()
-            }
-            onClick={
-              handleSubmit
-            }
+            disabled={!content.trim()}
+            onClick={handleSubmit}
           >
             Comment
           </Button>

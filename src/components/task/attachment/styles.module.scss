@@ -20,7 +20,7 @@
 .list {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 14px;
 }
 
 /* =====================================================
@@ -30,25 +30,78 @@
 .attachmentItem {
     display: flex;
     align-items: center;
-    gap: 18px;
+    gap: 14px;
 
-    padding: 16px;
+    padding: 10px;
+
+    background: #ffffff;
 
     border: 1px solid #e5e7eb;
-    border-radius: 12px;
+    border-radius: 14px;
 
-    background: white;
+    transition: all .2s ease;
+
+    &:hover {
+        border-color: #cbd5e1;
+
+        box-shadow: 0 4px 16px rgba(15, 23, 42, .06);
+    }
+}
+
+.icon {
+    flex-shrink: 0;
+
+    .ant-avatar {
+        background: #eef2ff;
+        color: #4f46e5;
+        font-size: 8px;
+    }
 }
 
 .body {
     flex: 1;
 
+    min-width: 0;
+
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 8px;
+}
+
+.fileName {
+    font-size: 14px;
+
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    flex-wrap: wrap;
+
+    font-size: 13px;
+    color: #64748b;
+
+    span {
+        color: #cbd5e1;
+    }
 }
 
 .actions {
     display: flex;
-    gap: 8px;
+    gap: 10px;
+
+    flex-shrink: 0;
+}
+
+/* =====================================================
+   Empty
+===================================================== */
+
+.empty {
+    padding: 60px 0;
 }
