@@ -16,6 +16,7 @@ import type {
   Task,
   TaskFilter,
   UpdateTaskPayload,
+  TaskStatus
 } from '@/types/task.type';
 
 interface Pagination {
@@ -89,6 +90,11 @@ interface ProjectTaskContextType {
   deleteTask: (
     taskId: string,
   ) => Promise<void>;
+
+  updateTaskStatus: (
+  taskId: string,
+  status: TaskStatus,
+) => Promise<void>;
 }
 
 const ProjectTaskContext =
@@ -253,6 +259,34 @@ export function ProjectTaskProvider({
       await refreshTasks();
     };
 
+
+    const updateTaskStatus = async (
+  taskId: string,
+  status: TaskStatus,
+) => {
+  const oldTasks = tasks;
+
+  // optimistic update
+  setTasks((prev) =>
+    prev.map((task) =>
+      task._id === taskId
+        ? { ...task, status }
+        : task,
+    ),
+  );
+
+  try {
+    await taskService.update(taskId, {
+      status,
+    });
+  } catch {
+    setTasks(oldTasks);
+
+    message.error(
+      'Update task status failed',
+    );
+  }
+};
   const deleteTask =
     async (
       taskId: string,
@@ -313,6 +347,8 @@ export function ProjectTaskProvider({
         createTask,
 
         updateTask,
+
+        updateTaskStatus,
 
         deleteTask,
       }}

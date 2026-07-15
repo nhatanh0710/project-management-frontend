@@ -1,44 +1,37 @@
 @use '@/styles/mixins.scss' as *;
 
-/* =====================================================
-   Sidebar
-===================================================== */
-
 .sidebar {
     width: 180px;
-    height: 100vh;
 
     display: flex;
     flex-direction: column;
 
-    padding: 16px 12px;
-
+    height: 100vh; // hoặc height: 100%
+    padding: 12px;
     background: var(--sidebar-bg);
     border-right: 1px solid var(--sidebar-border);
 
     overflow: hidden;
-    box-sizing: border-box;
 }
 
-/* =====================================================
+/* =========================================
    Logo
-===================================================== */
+========================================= */
 
 .logo {
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 12px;
 
     margin-bottom: 20px;
 
     padding: 0 6px;
 
     h2 {
-        margin: 0;
-
         color: #fff;
         font-size: 20px;
         font-weight: 700;
+        margin: 0;
     }
 
     span {
@@ -48,30 +41,30 @@
 }
 
 .logoIcon {
-    width: 46px;
-    height: 46px;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    width: 42px;
+    height: 42px;
 
     border-radius: 12px;
 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     background: var(--sidebar-active);
 
-    color: white;
+    color: #fff;
 
-    font-size: 18px;
     font-weight: 700;
 }
 
-/* =====================================================
+/* =========================================
    Menu
-===================================================== */
+========================================= */
 
 .menu {
     display: flex;
     flex-direction: column;
+
     gap: 6px;
 
     margin-bottom: 10px;
@@ -80,7 +73,7 @@
 .item {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
 
     padding: 12px 14px;
 
@@ -90,66 +83,63 @@
 
     transition: .2s;
 
-    svg {
-        font-size: 16px;
-    }
+    text-decoration: none;
 
-    span {
-        font-size: 14px;
-        font-weight: 500;
+    svg {
+        font-size: 17px;
     }
 
     &:hover {
         background: var(--sidebar-hover);
-        color: var(--sidebar-text-hover);
+
+        color: #fff;
     }
 }
 
 .active {
     background: var(--sidebar-active);
-    color: var(--sidebar-text-active);
 
-    box-shadow: 0 6px 14px rgba(79, 70, 229, .25);
+    color: #fff;
+
+    font-weight: 600;
 }
 
-/* =====================================================
-   Workspace
-===================================================== */
+/* =========================================
+   Footer
+========================================= */
 
-.workspace {
-    flex: 1;
+.footer {
+    margin-top: auto;
 
-    min-height: 0;
+    padding-top: 10px;
 
-    overflow-y: auto;
-
-    margin-top: 12px;
-
-    padding-right: 4px;
-}
-
-/* =====================================================
-   User
-===================================================== */
-
-.user {
-    margin-top: 12px;
+    border-top: 1px solid rgba(255, 255, 255, .08);
 
     display: flex;
+    flex-direction: column;
+
+    gap: 10px;
+}
+
+.profileCard {
+    display: flex;
     align-items: center;
+
     gap: 12px;
 
-    width: 100%;
+    padding: 12px;
 
-    padding: 10px;
+    border-radius: 12px;
 
-    box-sizing: border-box;
+    color: inherit;
 
-    border-radius: 14px;
+    text-decoration: none;
 
-    background: rgba(255, 255, 255, .05);
+    transition: .2s;
 
-    border: 1px solid rgba(255, 255, 255, .08);
+    &:hover {
+        background: var(--sidebar-hover);
+    }
 }
 
 .info {
@@ -164,15 +154,43 @@
     color: #fff;
 
     font-size: 14px;
+
     font-weight: 600;
 }
 
 .role {
-    @include truncate;
-
-    margin-top: 3px;
+    margin-top: 2px;
 
     color: var(--sidebar-text-muted);
 
     font-size: 12px;
+}
+
+.logout {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    width: 100%;
+
+    padding: 8px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    background: transparent;
+
+    color: #f87171;
+
+    cursor: pointer;
+
+    transition: .2s;
+
+    font-size: 13px;
+
+    &:hover {
+        background: rgba(239, 68, 68, .12);
+    }
 }

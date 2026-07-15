@@ -3,110 +3,109 @@
 import { Space, Tag, Typography } from 'antd';
 import { CalendarOutlined } from '@ant-design/icons';
 import type { ColumnsType } from 'antd/es/table';
+import { useRouter } from 'next/navigation';
 
-import { Task } from '@/types/task.type';
+import { useWorkspace } from '@/contexts/workspace.context';
+import { useCurrentProject } from '@/contexts/current-project.context';
+
+import { Task, TaskStatus } from '@/types/task.type';
 
 import TaskPriorityTag from '../task-priority-tag';
 import TaskStatusTag from '../task-status-tag';
 
 const { Text } = Typography;
-import { useRouter } from "next/navigation";
-import { useWorkspace } from "@/contexts/workspace.context";
-import { useCurrentProject } from "@/contexts/current-project.context";
 
 export function useTaskTableColumns(): ColumnsType<Task> {
-    const router = useRouter();
+  const router = useRouter();
 
-    const { currentWorkspace } =
-        useWorkspace();
+  const { currentWorkspace } = useWorkspace();
 
-    const { project } =
-        useCurrentProject();
+  const { project } = useCurrentProject();
 
-    return [
-        {
-    title: 'Code',
-    dataIndex: 'task_code',
-    width: 110,
-    render: (value: string) => (
-      <Tag>{value}</Tag>
-    ),
-  },
+  const tagColors: Record<TaskStatus, string> = {
+    [TaskStatus.TODO]: 'default',
+    [TaskStatus.IN_PROGRESS]: 'processing',
+    [TaskStatus.REVIEW]: 'warning',
+    [TaskStatus.DONE]: 'success',
+  };
 
-  {
-    title: 'Title',
-    dataIndex: 'title',
-    render: (_, task) => (
-    <div
-        style={{
-            cursor: "pointer",
-        }}
-        onClick={() => {
-            if (!currentWorkspace || !project)
-                return;
+  return [
+    {
+      title: 'Code',
+      dataIndex: 'task_code',
+      width: 110,
+      render: (_, task) => (
+        <Tag color={tagColors[task.status]}>
+          {task.task_code}
+        </Tag>
+      ),
+    },
+
+    {
+      title: 'Title',
+      dataIndex: 'title',
+      render: (_, task) => (
+        <div
+          style={{
+            cursor: 'pointer',
+          }}
+          onClick={() => {
+            if (!currentWorkspace || !project) return;
 
             router.push(
-                `/user/workspace/${currentWorkspace.workspaceId._id}/project/${project._id}/tasks/${task._id}`,
+              `/user/workspace/${currentWorkspace.workspaceId._id}/project/${project._id}/tasks/${task._id}`,
             );
-        }}
-    >
-        <Text strong>{task.title}</Text>
+          }}
+        >
+          <Text strong>{task.title}</Text>
 
-        <br />
+          <br />
 
-        <Text type="secondary">
-          {task.description ||
-            'No description'}
-        </Text>
-      </div>
-    ),
-  },
-
-  {
-    title: 'Status',
-    dataIndex: 'status',
-    width: 140,
-    render: (status) => (
-      <TaskStatusTag
-        status={status}
-      />
-    ),
-  },
-
-  {
-    title: 'Priority',
-    dataIndex: 'priority',
-    width: 130,
-    render: (priority) => (
-      <TaskPriorityTag
-        priority={priority}
-      />
-    ),
-  },
-
-  {
-    title: 'Estimate',
-    dataIndex: 'estimate_time',
-    width: 120,
-    render: (value: number) =>
-      `${value} h`,
-  },
-
-  {
-    title: 'Deadline',
-    dataIndex: 'deadline',
-    width: 150,
-    render: (value?: string) =>
-      value ? (
-        <Space>
-          <CalendarOutlined />
-          {new Date(
-            value,
-          ).toLocaleDateString()}
-        </Space>
-      ) : (
-        '--'
+          <Text type="secondary">
+            {task.description || 'No description'}
+          </Text>
+        </div>
       ),
-  },
-];
+    },
+
+    {
+      title: 'Status',
+      dataIndex: 'status',
+      width: 140,
+      render: (status: TaskStatus) => (
+        <TaskStatusTag status={status} />
+      ),
+    },
+
+    {
+      title: 'Priority',
+      dataIndex: 'priority',
+      width: 130,
+      render: (priority) => (
+        <TaskPriorityTag priority={priority} />
+      ),
+    },
+
+    {
+      title: 'Estimate',
+      dataIndex: 'estimate_time',
+      width: 110,
+      render: (value: number) => `${value} h`,
+    },
+
+    {
+      title: 'Deadline',
+      dataIndex: 'deadline',
+      width: 150,
+      render: (value?: string) =>
+        value ? (
+          <Space size={4}>
+            <CalendarOutlined />
+            {new Date(value).toLocaleDateString()}
+          </Space>
+        ) : (
+          '--'
+        ),
+    },
+  ];
 }

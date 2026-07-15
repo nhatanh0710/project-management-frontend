@@ -5,6 +5,7 @@ import { Table } from 'antd';
 import { useProjectTask } from '@/contexts/task.context';
 
 import {  useTaskTableColumns } from './task-table-columns';
+import { TaskPriority } from '@/types/task.type';
 
 export default function TaskList() {
   const {
@@ -22,6 +23,14 @@ const columns =
       loading={loading}
       columns={columns}
       dataSource={tasks}
+       rowClassName={(record) =>
+  `status-${record.status} ${
+    record.priority ===
+    TaskPriority.URGENT
+      ? 'urgent-row'
+      : ''
+  }`
+}
       pagination={{
         current: pagination.page,
         pageSize: pagination.limit,

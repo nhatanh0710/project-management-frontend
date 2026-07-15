@@ -1,36 +1,55 @@
+@use '@/styles/variables' as *;
+
 .dashboard {
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 18px;
 }
+
+/* ===================================
+   Statistics
+=================================== */
 
 .statisticsGrid {
     display: grid;
-    grid-template-columns: repeat(auto-fit,
-            minmax(220px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 14px;
 }
 
 .statisticsCard {
-    border-radius: 12px;
+    border-radius: $radius-md;
+
+    :global(.ant-card-body) {
+        padding: 14px 16px;
+    }
 }
 
 .statisticsTitle {
-    color: #64748b;
-    font-size: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    color: $text-muted;
+    text-transform: uppercase;
+    letter-spacing: .04em;
 }
 
 .statisticsValue {
-    margin-top: 8px;
-    font-size: 26px;
+    margin-top: 4px;
+
+    font-size: 22px;
     font-weight: 700;
-    color: #0f172a;
+    color: $text;
+
+    line-height: 1.2;
 }
+
+/* ===================================
+   Section
+=================================== */
 
 .section {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 12px;
 }
 
 .sectionHeader {
@@ -41,51 +60,63 @@
 
 .sectionTitle {
     margin: 0;
-    font-size: 20px;
+
+    font-size: 17px;
     font-weight: 600;
-    color: #0f172a;
+
+    color: $text;
 }
 
 .card {
-    border-radius: 12px;
+    border-radius: $radius-md;
+
+    :global(.ant-card-body) {
+        padding: 16px;
+    }
 }
+
+/* ===================================
+   Task List
+=================================== */
 
 .taskList {
     display: flex;
     flex-direction: column;
-    gap: 16px;
 }
 
 .taskItem {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 14px 0;
+
+    padding: 10px 0;
 
     &:not(:last-child) {
-        border-bottom: 1px solid #e2e8f0;
+        border-bottom: 1px solid $border;
     }
 }
 
 .taskInfo {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 2px;
 }
 
 .taskTitle {
+    font-size: 14px;
     font-weight: 600;
-    color: #0f172a;
+    color: $text;
 }
 
 .taskMeta {
     display: flex;
     align-items: center;
-    gap: 8px;
-    color: #64748b;
-    font-size: 12px;
+    gap: 6px;
+
+    font-size: 11px;
+    color: $text-secondary;
 }
 
 .empty {
-    padding: 40px 0;
+    padding: 24px 0;
 }

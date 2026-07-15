@@ -1,3 +1,4 @@
+@use '@/styles/variables' as *;
 /* ===========================
    Toolbar
 =========================== */
@@ -7,15 +8,14 @@
   justify-content: space-between;
   align-items: center;
 
-  gap: 16px;
-
-  margin-bottom: 20px;
+  gap: 10px;
 }
 
 .toolbarLeft {
   display: flex;
   align-items: center;
   gap: 12px;
+
   flex: 1;
 
   :global(.ant-input-affix-wrapper) {
@@ -31,8 +31,9 @@
   display: flex;
   align-items: center;
 }
+
 /* ===========================
-   Task Card
+   Task List Card
 =========================== */
 
 .taskCard {
@@ -45,7 +46,7 @@
   justify-content: space-between;
   align-items: center;
 
-  margin-bottom: 12px;
+  margin-bottom: 6px;
 }
 
 .taskCode {
@@ -82,49 +83,86 @@
   justify-content: flex-end;
 }
 
-.taskBoard {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-  align-items: flex-start;
+:global(.status-todo) {
+  td:first-child {
+    border-left: 4px solid $status-todo;
+  }
+
+  &:hover td {
+    background: rgba($status-todo, .04);
+  }
 }
 
-.taskColumn {
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
-  border-radius: 12px;
-  padding: 16px;
-  min-height: 650px;
+:global(.status-in_progress) {
+  td:first-child {
+    border-left: 4px solid $status-progress;
+  }
+
+  &:hover td {
+    background: rgba($status-progress, .04);
+  }
 }
 
-.columnHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+:global(.status-review) {
+  td:first-child {
+    border-left: 4px solid $status-review;
+  }
 
-  margin-bottom: 16px;
+  &:hover td {
+    background: rgba($status-review, .04);
+  }
 }
 
-.columnHeader h5 {
-  margin: 0 !important;
+:global(.status-done) {
+  td:first-child {
+    border-left: 4px solid $status-done;
+  }
+
+  &:hover td {
+    background: rgba($status-done, .04);
+  }
 }
+:global(.urgent-row) {
 
-.columnCount {
-  background: #e2e8f0;
-  border-radius: 999px;
-  min-width: 28px;
-  height: 28px;
+  td {
+    background: rgba($danger, .07);
+  }
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  td:first-child {
+    border-left: 4px solid $danger !important;
+  }
 
-  font-size: 13px;
+  &:hover td {
+    background: rgba($danger, .09) !important;
+  }
+}
+//Tag
+
+.tag {
   font-weight: 600;
+  border-radius: 999px;
 }
 
-.columnBody {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+.todo {
+  color: $status-todo;
+  background: rgba($status-todo, .12);
+  border: 1px solid rgba($status-todo, .28);
+}
+
+.in_progress {
+  color: $status-progress;
+  background: rgba($status-progress, .12);
+  border: 1px solid rgba($status-progress, .28);
+}
+
+.review {
+  color: $status-review;
+  background: rgba($status-review, .12);
+  border: 1px solid rgba($status-review, .28);
+}
+
+.done {
+  color: $status-done;
+  background: rgba($status-done, .12);
+  border: 1px solid rgba($status-done, .28);
 }

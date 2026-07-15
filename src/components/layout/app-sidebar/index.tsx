@@ -1,30 +1,32 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 import { Avatar } from 'antd';
 
 import {
   HomeOutlined,
-  AppstoreOutlined,
   CheckSquareOutlined,
   SettingOutlined,
   UserOutlined,
+  LogoutOutlined,
 } from '@ant-design/icons';
 
-import { getUser } from '@/utils/auth';
- import { useAuth } from '@/contexts/auth.context';
-import styles from './styles.module.scss';
-import { useEffect, useState } from 'react';
+import { useAuth } from '@/contexts/auth.context';
+
+import { clearAuth } from '@/utils/auth';
+
 import WorkspaceList from '@/components/workspace/workspace-list';
+
+import styles from './styles.module.scss';
+
 const menus = [
   {
     label: 'Dashboard',
     href: '/user',
     icon: <HomeOutlined />,
   },
-  
   {
     label: 'My Tasks',
     href: '/user/tasks',
@@ -40,32 +42,41 @@ const menus = [
 export default function AppSidebar() {
   const pathname = usePathname();
 
+  const router = useRouter();
 
+  const { user } = useAuth();
 
-const { user } = useAuth();
+  const handleLogout = () => {
+    clearAuth();
+
+    router.push('/auth/login');
+  };
 
   return (
     <aside className={styles.sidebar}>
       <div className={styles.logo}>
-        <div className={styles.logoIcon}>PM</div>
+        <div className={styles.logoIcon}>
+          PM
+        </div>
 
         <div>
           <h2>PM System</h2>
-          <span>AI Project Management</span>
         </div>
       </div>
 
       <nav className={styles.menu}>
         {menus.map((item) => {
           const active =
-            pathname === item.href 
+            pathname === item.href;
 
           return (
             <Link
               key={item.href}
               href={item.href}
               className={`${styles.item} ${
-                active ? styles.active : ''
+                active
+                  ? styles.active
+                  : ''
               }`}
             >
               <span className={styles.icon}>
@@ -77,22 +88,40 @@ const { user } = useAuth();
           );
         })}
       </nav>
+
       <WorkspaceList />
-      <div className={styles.user}>
-        <Avatar
-          size={42}
-          icon={<UserOutlined />}
-        />
 
-        <div className={styles.info}>
-          <div className={styles.name}>
-            {user?.name ?? 'User'}
-          </div>
+      <div className={styles.footer}>
+        <Link
+          href="/user/profile"
+          className={styles.profileCard}
+        >
+          <Avatar
+            size={44}
+            src={user?.avatar_url}
+            icon={<UserOutlined />}
+          />
 
-          <div className={styles.role}>
-            Workspace Owner
+          <div className={styles.info}>
+            <div className={styles.name}>
+              {user?.name ??
+                'User'}
+            </div>
+
+            <div className={styles.role}>
+              Workspace Owner
+            </div>
           </div>
-        </div>
+        </Link>
+
+        <button
+          onClick={handleLogout}
+          className={styles.logout}
+        >
+          <LogoutOutlined />
+
+          <span>Logout</span>
+        </button>
       </div>
     </aside>
   );

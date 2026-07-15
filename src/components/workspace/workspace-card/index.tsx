@@ -87,7 +87,7 @@ export default function WorkspaceCard({
             key: 'edit',
             icon: <EditOutlined />,
             label: 'Edit',
-            onClick: () => openUpdateModal(data),
+            onClick: () => openUpdateModal(workspace),
           },
         ]
       : []),

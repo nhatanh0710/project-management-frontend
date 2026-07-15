@@ -83,3 +83,15 @@ $spacing-xl: 32px;
 // =====================================
 
 $transition: all .2s ease;
+
+// =====================================
+// TASK STATUS
+// =====================================
+
+$status-todo: $secondary;
+
+$status-progress: $warning;
+
+$status-review: $primary;
+
+$status-done: $success;

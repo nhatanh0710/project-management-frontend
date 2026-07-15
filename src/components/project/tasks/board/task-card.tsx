@@ -1,27 +1,35 @@
 'use client';
 
-import {
-  Card,
-  Space,
-  Tag,
-  Typography,
-} from 'antd';
+import { Card, Tag, Typography } from 'antd';
 
 import {
   CalendarOutlined,
   ClockCircleOutlined,
 } from '@ant-design/icons';
 
-import type { Task } from '@/types/task.type';
-
-import TaskPriorityTag from '../task-priority-tag';
-
-import styles from '../styles.module.scss';
-
 import { useRouter } from 'next/navigation';
 
 import { useWorkspace } from '@/contexts/workspace.context';
 import { useCurrentProject } from '@/contexts/current-project.context';
+
+import TaskPriorityTag from '../task-priority-tag';
+
+import type { Task } from '@/types/task.type';
+
+import styles from './styles.module.scss';
+
+
+import { TaskPriority, TaskStatus } from '@/types/task.type';
+
+const statusClass = {
+  [TaskStatus.TODO]: styles.todoCard,
+  [TaskStatus.IN_PROGRESS]:
+    styles.progressCard,
+  [TaskStatus.REVIEW]:
+    styles.reviewCard,
+  [TaskStatus.DONE]:
+    styles.doneCard,
+};
 
 const { Text, Paragraph } =
   Typography;
@@ -34,51 +42,58 @@ interface Props {
 export default function TaskCard({
   task,
 }: Props) {
+  const router = useRouter();
+
+  const { currentWorkspace } =
+    useWorkspace();
+
+  const { project } =
+    useCurrentProject();
+
  
-    const router = useRouter();
+  
+  const openTask = () => {
+    if (
+      !currentWorkspace ||
+      !project
+    )
+      return;
 
-const { currentWorkspace } =
-  useWorkspace();
-
-const { project } =
-  useCurrentProject();
+    router.push(
+      `/user/workspace/${currentWorkspace.workspaceId._id}/project/${project._id}/tasks/${task._id}`,
+    );
+  };
 
   return (
     <Card
       hoverable
-      className={styles.taskCard}
+     className={`${styles.taskCard} 
+     ${statusClass[task.status]}
+     ${
+      task.priority === TaskPriority.URGENT
+        ? styles.urgentCard
+        : ''
+    }
+     `}
+     
       styles={{
         body: {
-          padding: 16,
+          padding: 12,
         },
       }}
-      onClick={() => {
-  if (!currentWorkspace || !project) return;
-
-  router.push(
-    `/user/workspace/${currentWorkspace.workspaceId._id}/project/${project._id}/tasks/${task._id}`,
-  );
-}}
+      onClick={openTask}
     >
-      <Space
-        style={{
-          width: '100%',
-          justifyContent:
-            'space-between',
-          marginBottom: 12,
-        }}
-      >
-        <Tag>{task.task_code}</Tag>
+      <div className={styles.taskCardTop}>
+        <Tag className={styles.taskCode}>
+          {task.task_code}
+        </Tag>
 
         <TaskPriorityTag
           priority={task.priority}
         />
-      </Space>
+      </div>
 
-      <Text
-        strong
-        className={styles.taskTitle}
-      >
+      <Text className={styles.taskTitle}>
         {task.title}
       </Text>
 
@@ -94,23 +109,22 @@ const { project } =
           'No description'}
       </Paragraph>
 
-      <div className={styles.taskMeta}>
-        <Space orientation="vertical">
-          <Text type="secondary">
-            <ClockCircleOutlined />{' '}
-            Estimate:{' '}
-            {task.estimate_time}h
-          </Text>
+      <div className={styles.taskFooter}>
+        <span>
+          <ClockCircleOutlined />
+          {' '}
+          {task.estimate_time}h
+        </span>
 
-          <Text type="secondary">
-            <CalendarOutlined />{' '}
-            {task.deadline
-              ? new Date(
-                  task.deadline,
-                ).toLocaleDateString()
-              : 'No deadline'}
-          </Text>
-        </Space>
+        <span>
+          <CalendarOutlined />
+          {' '}
+          {task.deadline
+            ? new Date(
+                task.deadline,
+              ).toLocaleDateString()
+            : '--'}
+        </span>
       </div>
     </Card>
   );
