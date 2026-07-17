@@ -260,30 +260,40 @@ export function ProjectTaskProvider({
     };
 
 
-    const updateTaskStatus = async (
+  const updateTaskStatus = async (
   taskId: string,
   status: TaskStatus,
 ) => {
-  const oldTasks = tasks;
 
-  // optimistic update
-  setTasks((prev) =>
-    prev.map((task) =>
+  // lưu lại trạng thái cũ
+  const previousTasks = tasks;
+
+  // cập nhật UI ngay
+  setTasks(prev =>
+    prev.map(task =>
       task._id === taskId
-        ? { ...task, status }
+        ? {
+            ...task,
+            status,
+          }
         : task,
     ),
   );
 
   try {
+
     await taskService.update(taskId, {
       status,
     });
-  } catch {
-    setTasks(oldTasks);
+
+  } catch (err: any) {
+
+    // rollback nếu backend từ chối
+    setTasks(previousTasks);
 
     message.error(
-      'Update task status failed',
+      err?.response?.data?.message ??
+      'Update task failed',
     );
   }
 };

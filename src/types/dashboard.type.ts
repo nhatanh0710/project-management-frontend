@@ -1,23 +1,25 @@
-// src/types/dashboard.type.ts
+import { Project } from './project.type';
+import { Task } from './task.type';
 
-import type { Task } from './task.type';
-
-export interface DashboardStatistics {
-  total: number;
-
-  todo: number;
-
-  in_progress: number;
-
-  review: number;
-
-  done: number;
-
-  overdue: number;
+export interface DashboardStatisticsResponse {
+  total_workspaces: number;
+  owned_projects: number;
+  joined_projects: number;
+  total_tasks: number;
+  completed_tasks: number;
+  overdue_tasks: number;
 }
 
-export interface DashboardOverview {
-  statistics: DashboardStatistics;
+export interface DashboardProjectSummary {
+  planning: number;
+  in_progress: number;
+  on_hold: number;
+  completed: number;
+}
 
-  recentTasks: Task[];
+export interface DashboardData {
+  statistics: DashboardStatisticsResponse;
+  project_summary: ProjectSummary;
+  recent_projects: Project[];
+  recent_tasks: Task[];
 }

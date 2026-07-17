@@ -1,16 +1,14 @@
 'use client';
 
 import {
-  Card,
   Col,
   Row,
-  Statistic,
 } from 'antd';
 
 import {
-  FolderOpenOutlined,
   CheckCircleOutlined,
   ClockCircleOutlined,
+  FolderOpenOutlined,
   PauseCircleOutlined,
 } from '@ant-design/icons';
 
@@ -45,74 +43,86 @@ export default function WorkspaceStats() {
         ProjectStatus.ON_HOLD,
     ).length;
 
+  const items = [
+    {
+      title: 'Projects',
+      value: projects.length,
+      icon: <FolderOpenOutlined />,
+    },
+    {
+      title: 'Completed',
+      value: completed,
+      icon: <CheckCircleOutlined />,
+    },
+    {
+      title: 'In Progress',
+      value: progress,
+      icon: <ClockCircleOutlined />,
+    },
+    {
+      title: 'On Hold',
+      value: hold,
+      icon: <PauseCircleOutlined />,
+    },
+  ];
+
   return (
     <Row
-      gutter={[20, 20]}
+      gutter={[18, 18]}
       className={styles.grid}
     >
-      <Col xs={24} md={12} xl={6}>
-        <Card className={styles.card}>
-          <Statistic
-            title="Projects"
-            value={projects.length}
-            prefix={
-              <FolderOpenOutlined
-                className={
-                  styles.icon
-                }
-              />
+      {items.map((item) => (
+        <Col
+          key={item.title}
+          xs={24}
+          sm={12}
+          xl={6}
+        >
+          <div
+            className={
+              styles.statCard
             }
-          />
-        </Card>
-      </Col>
+          >
+            <div
+              className={
+                styles.icon
+              }
+            >
+              {item.icon}
+            </div>
 
-      <Col xs={24} md={12} xl={6}>
-        <Card className={styles.card}>
-          <Statistic
-            title="Completed"
-            value={completed}
-            prefix={
-              <CheckCircleOutlined
+            <div
+              className={
+                styles.content
+              }
+            >
+              <div
                 className={
-                  styles.icon
+                  styles.value
                 }
-              />
-            }
-          />
-        </Card>
-      </Col>
+              >
+                {item.value}
+              </div>
 
-      <Col xs={24} md={12} xl={6}>
-        <Card className={styles.card}>
-          <Statistic
-            title="In Progress"
-            value={progress}
-            prefix={
-              <ClockCircleOutlined
+              <div
                 className={
-                  styles.icon
+                  styles.label
                 }
-              />
-            }
-          />
-        </Card>
-      </Col>
+              >
+                {item.title}
+              </div>
 
-      <Col xs={24} md={12} xl={6}>
-        <Card className={styles.card}>
-          <Statistic
-            title="On Hold"
-            value={hold}
-            prefix={
-              <PauseCircleOutlined
+              <div
                 className={
-                  styles.icon
+                  styles.caption
                 }
-              />
-            }
-          />
-        </Card>
-      </Col>
+              >
+                Live workspace data
+              </div>
+            </div>
+          </div>
+        </Col>
+      ))}
     </Row>
   );
 }

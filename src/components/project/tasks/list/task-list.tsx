@@ -5,7 +5,7 @@ import { Table } from 'antd';
 import { useProjectTask } from '@/contexts/task.context';
 
 import {  useTaskTableColumns } from './task-table-columns';
-import { TaskPriority } from '@/types/task.type';
+import { TaskPriority, TaskStatus } from '@/types/task.type';
 
 export default function TaskList() {
   const {
@@ -23,10 +23,10 @@ const columns =
       loading={loading}
       columns={columns}
       dataSource={tasks}
-       rowClassName={(record) =>
+     rowClassName={(record) =>
   `status-${record.status} ${
-    record.priority ===
-    TaskPriority.URGENT
+    record.priority === TaskPriority.URGENT &&
+    record.status !== TaskStatus.DONE
       ? 'urgent-row'
       : ''
   }`

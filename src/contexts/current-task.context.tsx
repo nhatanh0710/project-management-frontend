@@ -119,6 +119,7 @@ export function CurrentTaskProvider({
             ?.message ??
             'Update task failed',
         );
+        throw err;
       }
     };
 

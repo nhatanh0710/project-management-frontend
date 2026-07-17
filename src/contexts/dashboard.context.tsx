@@ -11,100 +11,60 @@ import { message } from 'antd';
 
 import { dashboardService } from '@/services/dashboard.service';
 
-import type {
-  DashboardStatistics,
-} from '@/types/dashboard.type';
-
-import type { Task } from '@/types/task.type';
+import { DashboardData } from '@/types/dashboard.type';
 
 interface DashboardContextType {
-  statistics: DashboardStatistics | null;
-
-  recentTasks: Task[];
+  dashboard: DashboardData | null;
 
   loading: boolean;
 
-  refreshDashboard: () => Promise<void>;
+  refresh: () => Promise<void>;
 }
 
 const DashboardContext =
-  createContext<
-    DashboardContextType | undefined
-  >(undefined);
+  createContext<DashboardContextType | undefined>(
+    undefined,
+  );
 
 export function DashboardProvider({
-  projectId,
   children,
 }: {
-  projectId: string;
   children: React.ReactNode;
 }) {
-  const [
-    statistics,
-    setStatistics,
-  ] =
-    useState<DashboardStatistics | null>(
-      null,
-    );
-
-  const [
-    recentTasks,
-    setRecentTasks,
-  ] = useState<Task[]>([]);
+  const [dashboard, setDashboard] =
+    useState<DashboardData | null>(null);
 
   const [loading, setLoading] =
-    useState(false);
+    useState(true);
 
-  const refreshDashboard =
-    async () => {
-      try {
-        setLoading(true);
+  const refresh = async () => {
+    try {
+      setLoading(true);
 
-        const [
-          statisticsData,
-          recentTasksData,
-        ] = await Promise.all([
-          dashboardService.getStatistics(
-            projectId,
-          ),
+      const data =
+        await dashboardService.getDashboard();
 
-          dashboardService.getRecentTasks(
-            projectId,
-          ),
-        ]);
-
-        setStatistics(
-          statisticsData,
-        );
-
-        setRecentTasks(
-          recentTasksData,
-        );
-      } catch (err: any) {
-        message.error(
-          err?.response?.data
-            ?.message ??
-            'Load dashboard failed',
-        );
-      } finally {
-        setLoading(false);
-      }
-    };
+      setDashboard(data);
+    } catch (err: any) {
+      message.error(
+        err?.response?.data?.message ??
+          'Load dashboard failed',
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    refreshDashboard();
-  }, [projectId]);
+    refresh();
+  }, []);
 
   return (
     <DashboardContext.Provider
       value={{
-        statistics,
-
-        recentTasks,
-
+        dashboard,
         loading,
-
-        refreshDashboard,
+        refresh,
       }}
     >
       {children}
@@ -113,14 +73,14 @@ export function DashboardProvider({
 }
 
 export function useDashboard() {
-  const context =
+  const ctx =
     useContext(DashboardContext);
 
-  if (!context) {
+  if (!ctx) {
     throw new Error(
       'useDashboard must be used inside DashboardProvider',
     );
   }
 
-  return context;
+  return ctx;
 }

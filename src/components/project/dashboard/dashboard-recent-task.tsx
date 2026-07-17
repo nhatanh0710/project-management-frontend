@@ -14,7 +14,7 @@ import {
   CalendarOutlined,
 } from '@ant-design/icons';
 
-import { useDashboard } from '@/contexts/dashboard.context';
+import { useDashboard } from '@/contexts/project-dashboard.context';
 
 import TaskPriorityTag from '../tasks/task-priority-tag';
 import TaskStatusTag from '../tasks/task-status-tag';

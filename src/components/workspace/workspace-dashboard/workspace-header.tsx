@@ -9,6 +9,7 @@ import {
 } from 'antd';
 
 import {
+  CalendarOutlined,
   EditOutlined,
   FolderOpenOutlined,
   PlusOutlined,
@@ -42,6 +43,10 @@ export default function WorkspaceHeader() {
     <Card className={styles.card}>
       <div className={styles.container}>
         <div className={styles.left}>
+          <span className={styles.badge}>
+            Workspace
+          </span>
+
           <Title
             level={2}
             className={styles.title}
@@ -57,26 +62,27 @@ export default function WorkspaceHeader() {
               'No description available.'}
           </Paragraph>
 
-          <Space
-            wrap
-            className={styles.meta}
-          >
+          <div className={styles.meta}>
             <Tag
-              color="blue"
-              icon={
-                <FolderOpenOutlined />
-              }
+              className={styles.metaTag}
+              icon={<FolderOpenOutlined />}
             >
               {projects.length} Projects
             </Tag>
 
-            <Text type="secondary">
-              Created{' '}
+            <Tag
+              className={styles.metaTag}
+              icon={<CalendarOutlined />}
+            >
               {new Date(
-                currentWorkspace.workspaceId.createdAt
+                currentWorkspace.workspaceId.createdAt,
               ).toLocaleDateString()}
+            </Tag>
+
+            <Text className={styles.owner}>
+              Workspace Owner
             </Text>
-          </Space>
+          </div>
         </div>
 
         <Space className={styles.actions}>
@@ -88,7 +94,7 @@ export default function WorkspaceHeader() {
               )
             }
           >
-            Edit Workspace
+            Edit
           </Button>
 
           <Button

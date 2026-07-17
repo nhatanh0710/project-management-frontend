@@ -4,7 +4,7 @@ import { TaskPriority, TaskStatus } from "@/types/task.type";
 export const TASK_STATUS_LABELS: Record<TaskStatus, string> = {
   [TaskStatus.TODO]: "To Do",
   [TaskStatus.IN_PROGRESS]: "In Progress",
-  [TaskStatus.REVIEW]: "In Review",
+  [TaskStatus.REVIEW]: "Review",
   [TaskStatus.DONE]: "Done",
 };
 

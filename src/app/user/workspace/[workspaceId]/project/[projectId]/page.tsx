@@ -1,6 +1,6 @@
 import DashboardOverview from '@/components/project/dashboard/dashboard-overview';
 
-import { DashboardProvider } from '@/contexts/dashboard.context';
+import { DashboardProvider } from '@/contexts/project-dashboard.context';
 
 interface Props {
   params: Promise<{

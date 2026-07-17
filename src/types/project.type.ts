@@ -1,8 +1,8 @@
 export enum ProjectStatus {
-  PLANNING = 'PLANNING',
-  IN_PROGRESS = 'IN_PROGRESS',
-  COMPLETED = 'COMPLETED',
-  ON_HOLD = 'ON_HOLD',
+  PLANNING = 'planning',
+  IN_PROGRESS = 'in_progress',
+  ON_HOLD = 'on_hold',
+  COMPLETED = 'completed',
 }
 
 export interface Project {

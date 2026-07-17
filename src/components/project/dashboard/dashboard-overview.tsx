@@ -2,7 +2,7 @@
 
 import { Row, Col, Skeleton } from 'antd';
 
-import { useDashboard } from '@/contexts/dashboard.context';
+import { useDashboard } from '@/contexts/project-dashboard.context';
 import { useCurrentProject } from '@/contexts/current-project.context';
 
 import ProjectProgress from '../common/project-progress';

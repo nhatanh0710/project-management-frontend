@@ -1,10 +1,10 @@
 'use client';
 
-import AppHeader from '@/components/layout/app-header';
 import AppSidebar from '@/components/layout/app-sidebar';
 
 import { AuthProvider } from '@/contexts/auth.context';
 import { WorkspaceProvider } from '@/contexts/workspace.context';
+import { DashboardProvider } from '@/contexts/dashboard.context';
 
 export default function DashboardLayout({
   children,
@@ -14,36 +14,15 @@ export default function DashboardLayout({
   return (
     <AuthProvider>
       <WorkspaceProvider>
-        <div
-          style={{
-            display: 'flex',
-            height: '100vh',
-          }}
-        >
-          <AppSidebar />
+        <DashboardProvider>
+          <div className="flex h-screen overflow-hidden">
+            <AppSidebar />
 
-          <div
-            style={{
-              flex: 1,
-              minWidth: 0,
-              display: 'flex',
-              flexDirection: 'column',
-            }}
-          >
-           
-
-            <main
-              style={{
-                flex: 1,
-                overflow: 'hidden', 
-                // dùng hidden thay vì scroll để tránh hiển thị scroll bar ngang khi nội dung vượt quá chiều rộng
-                padding: 6,
-              }}
-            >
+            <main className="flex-1 overflow-y-auto bg-slate-50 p-6">
               {children}
             </main>
           </div>
-        </div>
+        </DashboardProvider>
       </WorkspaceProvider>
     </AuthProvider>
   );

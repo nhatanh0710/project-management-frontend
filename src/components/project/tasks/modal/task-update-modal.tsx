@@ -66,17 +66,14 @@ export default function TaskUpdateModal() {
   const handleSubmit = async (
     values: any,
   ) => {
+  try {
     await updateTask({
       title: values.title,
-      description:
-        values.description,
+      description: values.description,
       status: values.status,
-      priority:
-        values.priority,
-      estimate_time:
-        values.estimate_time,
-      actual_time:
-        values.actual_time,
+      priority: values.priority,
+      estimate_time: values.estimate_time,
+      actual_time: values.actual_time,
       start_time:
         values.start_time?.toISOString(),
       deadline:
@@ -84,7 +81,8 @@ export default function TaskUpdateModal() {
     });
 
     form.resetFields();
-  };
+  } catch {}
+};
 
   return (
     <Modal

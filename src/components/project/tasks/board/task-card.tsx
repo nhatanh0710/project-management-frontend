@@ -49,7 +49,9 @@ export default function TaskCard({
 
   const { project } =
     useCurrentProject();
-
+    const isUrgent =
+  task.priority === TaskPriority.URGENT &&
+  task.status !== TaskStatus.DONE;
  
   
   const openTask = () => {
@@ -69,11 +71,7 @@ export default function TaskCard({
       hoverable
      className={`${styles.taskCard} 
      ${statusClass[task.status]}
-     ${
-      task.priority === TaskPriority.URGENT
-        ? styles.urgentCard
-        : ''
-    }
+      ${isUrgent ? styles.urgentCard : ''}
      `}
      
       styles={{

@@ -1,82 +1,161 @@
-'use client';
+// 'use client';
 
-import Link from 'next/link';
+// import Link from 'next/link';
 
-import {
-  Card,
-  Empty,
-  Progress,
-  Tag,
-} from 'antd';
+// import dayjs from 'dayjs';
 
-import { useParams } from 'next/navigation';
+// import {
+//   Card,
+//   Empty,
+//   Tag,
+// } from 'antd';
 
-import { useProjectList } from '@/contexts/project-list.context';
+// import {
+//   CalendarOutlined,
+// } from '@ant-design/icons';
 
-import ProjectStatusTag from '@/components/project/common/project-status-tag';
+// import { useParams } from 'next/navigation';
 
-import styles from './styles.module.scss';
+// import { useProjectList } from '@/contexts/project-list.context';
 
-export default function RecentProjects() {
-  const { workspaceId } = useParams();
+// import styles from './styles.module.scss';
 
-  const { projects } =
-    useProjectList();
+// export default function UpcomingDeadlines() {
+//   const { workspaceId } = useParams();
 
-  if (!projects.length) {
-    return (
-      <Card
-        title="Recent Projects"
-        className={styles.card}
-      >
-        <Empty
-          description="No project yet"
-        />
-      </Card>
-    );
-  }
+//   const { projects } = useProjectList();
 
-  return (
-    <Card
-      title="Recent Projects"
-      className={styles.card}
-    >
-      <div className={styles.list}>
-        {projects
-          .slice(0, 5)
-          .map((project) => (
-            <Link
-              key={project._id}
-              href={`/user/workspace/${workspaceId}/project/${project._id}`}
-              className={styles.row}
-            >
-              <div className={styles.left}>
-                <div
-                  className={
-                    styles.name
-                  }
-                >
-                  {project.name}
-                </div>
+//   const deadlineProjects = [...projects]
+//     .filter(
+//       (project) =>
+//         !!project.deadline,
+//     )
+//     .sort(
+//       (a, b) =>
+//         new Date(
+//           a.deadline!,
+//         ).getTime() -
+//         new Date(
+//           b.deadline!,
+//         ).getTime(),
+//     )
+//     .slice(0, 5);
 
-                <ProjectStatusTag
-                  status={
-                    project.status
-                  }
-                />
-              </div>
+//   const renderDeadline = (
+//     deadline: string,
+//   ) => {
+//     const today =
+//       dayjs().startOf('day');
 
-              <div className={styles.right}>
-                <Progress
-                  percent={
-                    project.progress
-                  }
-                  size="small"
-                />
-              </div>
-            </Link>
-          ))}
-      </div>
-    </Card>
-  );
-}
+//     const target =
+//       dayjs(deadline).startOf(
+//         'day',
+//       );
+
+//     const diff =
+//       target.diff(today, 'day');
+
+//     if (diff < 0) {
+//       return (
+//         <Tag color="red">
+//           Overdue{' '}
+//           {Math.abs(diff)} day
+//           {Math.abs(diff) > 1
+//             ? 's'
+//             : ''}
+//         </Tag>
+//       );
+//     }
+
+//     if (diff === 0) {
+//       return (
+//         <Tag color="volcano">
+//           Today
+//         </Tag>
+//       );
+//     }
+
+//     if (diff === 1) {
+//       return (
+//         <Tag color="orange">
+//           Tomorrow
+//         </Tag>
+//       );
+//     }
+
+//     return (
+//       <Tag color="blue">
+//         {diff} days left
+//       </Tag>
+//     );
+//   };
+
+//   return (
+//     <Card
+//       className={styles.card}
+//       title={
+//         <div
+//           className={
+//             styles.title
+//           }
+//         >
+//           <CalendarOutlined />
+
+//           <span>
+//             Upcoming Deadlines
+//           </span>
+//         </div>
+//       }
+//     >
+//       {!deadlineProjects.length ? (
+//         <Empty description="No deadline" />
+//       ) : (
+//         <div className={styles.list}>
+//           {deadlineProjects.map(
+//             (project) => (
+//               <Link
+//                 key={project._id}
+//                 href={`/user/workspace/${workspaceId}/project/${project._id}`}
+//                 className={
+//                   styles.item
+//                 }
+//               >
+//                 <div
+//                   className={
+//                     styles.header
+//                   }
+//                 >
+//                   <span
+//                     className={
+//                       styles.name
+//                     }
+//                   >
+//                     {
+//                       project.name
+//                     }
+//                   </span>
+
+//                   {renderDeadline(
+//                     project.deadline!,
+//                   )}
+//                 </div>
+
+//                 <div
+//                   className={
+//                     styles.date
+//                   }
+//                 >
+//                   {dayjs(
+//                     project.deadline,
+//                   ).format(
+//                     'DD/MM/YYYY',
+//                   )}
+//                 </div>
+//               </Link>
+//             ),
+//           )}
+//         </div>
+//       )}
+//     </Card>
+//   );
+// }
