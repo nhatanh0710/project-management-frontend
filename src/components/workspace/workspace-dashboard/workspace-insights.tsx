@@ -77,7 +77,7 @@ export default function WorkspaceInsights() {
         <div className={styles.health}>
           <Progress
             percent={Math.round(avg)}
-            strokeWidth={10}
+            size= 'medium'
           />
 
           <Tag color="green">

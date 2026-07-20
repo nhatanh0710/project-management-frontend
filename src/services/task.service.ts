@@ -1,5 +1,9 @@
 import { api } from '@/services/api';
 
+import type {
+  MyTaskResponse,
+} from '@/types/my-task.type';
+
 import {
   CreateTaskPayload,
   TaskQuery,
@@ -107,4 +111,19 @@ export const taskService = {
 
     return res.data;
   },
+  
+// ================= MY TASKS =================
+
+getMyTasks: async (
+  params?: TaskQuery,
+): Promise<MyTaskResponse> => {
+  const res = await api.get(
+    `${BASE_URL}/my-tasks`,
+    {
+      params,
+    },
+  );
+
+  return res.data;
+},
 };

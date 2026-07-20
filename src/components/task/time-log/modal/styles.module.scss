@@ -1,0 +1,61 @@
+.form {
+    margin-top: 20px;
+}
+
+.form :global(.ant-form-item) {
+    margin-bottom: 20px;
+}
+
+.form :global(.ant-form-item-label > label) {
+    font-weight: 600;
+    color: #262626;
+}
+
+.fullWidth {
+    width: 100%;
+}
+
+.textarea {
+    resize: none;
+}
+
+.textarea:focus {
+    border-color: #1677ff;
+    box-shadow: 0 0 0 2px rgba(22, 119, 255, 0.12);
+}
+
+.form :global(.ant-input-number) {
+    border-radius: 10px;
+    height: 40px;
+}
+
+.form :global(.ant-picker) {
+    border-radius: 10px;
+    height: 40px;
+}
+
+.form :global(.ant-input),
+.form :global(.ant-input-affix-wrapper) {
+    border-radius: 10px;
+}
+
+.form :global(.ant-modal-body) {
+    padding-top: 12px;
+}
+
+.form :global(.ant-btn-primary) {
+    border-radius: 10px;
+    font-weight: 600;
+}
+
+.form :global(.ant-picker:hover),
+.form :global(.ant-input-number:hover),
+.form :global(.ant-input:hover) {
+    border-color: #4096ff;
+}
+
+.form :global(.ant-input-number-focused),
+.form :global(.ant-picker-focused),
+.form :global(.ant-input:focus) {
+    box-shadow: 0 0 0 2px rgba(22, 119, 255, 0.12);
+}

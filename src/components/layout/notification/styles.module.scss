@@ -1,0 +1,269 @@
+@use '@/styles/variables' as *;
+
+/* ==========================================
+   Floating Notification
+========================================== */
+
+.wrapper {
+    position: fixed;
+    right: 28px;
+    bottom: 28px;
+    z-index: 1200;
+}
+
+/* ==========================================
+   Floating Button
+========================================== */
+
+.button {
+    width: 56px;
+    height: 56px;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    color: #fff;
+
+    background: linear-gradient(135deg,
+            $primary,
+            $secondary );
+
+    box-shadow: $shadow-lg;
+
+    transition: $transition;
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 16px 36px rgba($primary, .28);
+    }
+
+    svg {
+        font-size: 22px;
+    }
+}
+
+/* ==========================================
+   Panel
+========================================== */
+
+.panel {
+    position: absolute;
+
+    right: 0;
+    bottom: 72px;
+
+    width: 380px;
+    max-height: 520px;
+
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+
+    background: #fff;
+
+    border: 1px solid $border;
+    border-radius: $radius-lg;
+
+    box-shadow: $shadow-lg;
+
+    animation: popup .18s ease;
+}
+
+/* ==========================================
+   Header
+========================================== */
+
+.panelHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 18px 20px;
+
+    border-bottom: 1px solid $border;
+
+    background: linear-gradient(135deg,
+            rgba($primary, .05),
+            rgba($secondary, .05));
+}
+
+.headerLeft {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    font-size: 16px;
+    font-weight: 700;
+    color: $text;
+
+    svg {
+        color: $primary;
+        font-size: 18px;
+    }
+}
+
+/* ==========================================
+   List
+========================================== */
+
+.panel :global(.ant-list) {
+    overflow-y: auto;
+    max-height: 450px;
+}
+
+.panel :global(.ant-list-item) {
+    padding: 0;
+    border: none;
+}
+
+/* ==========================================
+   Notification Item
+========================================== */
+
+.item {
+    display: flex;
+    gap: 14px;
+
+    padding: 16px 18px;
+
+    cursor: pointer;
+
+    transition: $transition;
+
+    border-left: 4px solid transparent;
+
+    &:hover {
+        background: rgba($primary, .04);
+    }
+}
+
+.unread {
+    background: rgba($primary, .03);
+    border-left-color: $primary;
+}
+
+.icon {
+    flex-shrink: 0;
+}
+
+.projectIcon {
+    background: rgba($primary, .12);
+    color: $primary;
+}
+
+.taskIcon {
+    background: rgba($success, .12);
+    color: $success;
+}
+
+.commentIcon {
+    background: rgba($warning, .14);
+    color: $warning;
+}
+
+.content {
+    flex: 1;
+    min-width: 0;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 6px;
+}
+
+.title {
+    font-size: 14px;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+
+    border-radius: 50%;
+
+    background: $primary;
+
+    flex-shrink: 0;
+}
+
+.message {
+    display: block;
+
+    margin-bottom: 6px;
+
+    color: $text-secondary;
+
+    font-size: 13px;
+    line-height: 1.55;
+}
+
+.time {
+    display: block;
+
+    color: $text-muted;
+
+    font-size: 12px;
+}
+
+/* ==========================================
+   Scrollbar
+========================================== */
+
+.panel :global(.ant-list)::-webkit-scrollbar {
+    width: 6px;
+}
+
+.panel :global(.ant-list)::-webkit-scrollbar-thumb {
+    border-radius: 999px;
+    background: rgba($primary, .25);
+}
+
+.panel :global(.ant-list)::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* ==========================================
+   Animation
+========================================== */
+
+@keyframes popup {
+    from {
+        opacity: 0;
+        transform: translateY(8px) scale(.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* ==========================================
+   Responsive
+========================================== */
+
+@media (max-width: 768px) {
+    .wrapper {
+        right: 16px;
+        bottom: 16px;
+    }
+
+    .panel {
+        width: calc(100vw - 32px);
+        max-width: 380px;
+    }
+
+    .button {
+        width: 52px;
+        height: 52px;
+    }
+}

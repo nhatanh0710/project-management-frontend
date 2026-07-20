@@ -1,87 +1,64 @@
-'use client';
-
-import { useProjectMembers } from '@/contexts/project-member.context';
-
-import {
-  canAccessSettings,
-  canArchiveProject,
-  canAssignTask,
-  canCreateTask,
-  canDeleteFile,
-  canDeleteProject,
-  canDeleteTask,
-  canEditAllTasks,
-  canEditProject,
-  canInviteMembers,
-  canManageMembers,
-  canRemoveMembers,
-  canUpdateMemberRole,
-  canUploadFile,
-  canViewProject,
-  isManager,
-  isMember,
-  isOwner,
-  isViewer,
-} from '@/utils/project-permission';
+import { useCurrentProject } from '@/contexts/current-project.context';
 
 export function useProjectPermission() {
-  const { currentMember } =
-    useProjectMembers();
+  const { currentMember } = useProjectMembers();
+  const { project } = useCurrentProject();
 
-  const role =
-    currentMember?.role;
+  const role = currentMember?.role;
+  const isArchived = project?.is_archived ?? false;
 
   return {
     currentMember,
-
+    project,
     role,
+
+    isArchived,
 
     isOwner: isOwner(role),
     isManager: isManager(role),
     isMember: isMember(role),
     isViewer: isViewer(role),
 
-    canViewProject:
-      canViewProject(role),
+    canViewProject: canViewProject(role),
 
     canEditProject:
-      canEditProject(role),
+      !isArchived && canEditProject(role),
 
     canArchiveProject:
-      canArchiveProject(role),
+      !isArchived && canArchiveProject(role),
 
     canDeleteProject:
-      canDeleteProject(role),
+      !isArchived && canDeleteProject(role),
 
     canManageMembers:
-      canManageMembers(role),
+      !isArchived && canManageMembers(role),
 
     canInviteMembers:
-      canInviteMembers(role),
+      !isArchived && canInviteMembers(role),
 
     canRemoveMembers:
-      canRemoveMembers(role),
+      !isArchived && canRemoveMembers(role),
 
     canUpdateMemberRole:
-      canUpdateMemberRole(role),
+      !isArchived && canUpdateMemberRole(role),
 
     canCreateTask:
-      canCreateTask(role),
+      !isArchived && canCreateTask(role),
 
     canAssignTask:
-      canAssignTask(role),
+      !isArchived && canAssignTask(role),
 
     canDeleteTask:
-      canDeleteTask(role),
+      !isArchived && canDeleteTask(role),
 
     canEditAllTasks:
-      canEditAllTasks(role),
+      !isArchived && canEditAllTasks(role),
 
     canUploadFile:
-      canUploadFile(role),
+      !isArchived && canUploadFile(role),
 
     canDeleteFile:
-      canDeleteFile(role),
+      !isArchived && canDeleteFile(role),
 
     canAccessSettings:
       canAccessSettings(role),

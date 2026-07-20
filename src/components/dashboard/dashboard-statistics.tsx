@@ -67,7 +67,7 @@ export default function DashboardStatistics({
         <Card
           key={item.title}
           className={styles.statisticsCard}
-          bordered={false}
+          variant="outlined"
         >
           <div className={styles.statisticsTop}>
             <div

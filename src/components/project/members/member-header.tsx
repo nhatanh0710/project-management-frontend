@@ -13,8 +13,8 @@ import {
 } from '@ant-design/icons';
 
 import { useProjectMember } from '@/contexts/project-member.context';
-import { useProjectList } from '@/contexts/project-list.context';
 
+import { useCurrentProject } from '@/contexts/current-project.context';
 import styles from './styles.module.scss';
 
 const { Title, Text } = Typography;
@@ -25,8 +25,7 @@ export default function MemberHeader() {
     setOpenCreate,
   } = useProjectMember();
 
-  const { currentProject } = useProjectList();
-
+  const { project, isArchived } = useCurrentProject();
   return (
     <div className={styles.header}>
       <div className={styles.left}>
@@ -45,12 +44,12 @@ export default function MemberHeader() {
             {members.length} Members
           </Tag>
 
-          {currentProject && (
+          {project && (
             <Text
               type="secondary"
               className={styles.project}
             >
-              {currentProject.name}
+              {project.name}
             </Text>
           )}
         </Space>
@@ -59,6 +58,8 @@ export default function MemberHeader() {
       <Button
         type="primary"
         icon={<PlusOutlined />}
+         disabled={isArchived}
+  title={isArchived ? 'Project is archived' : ''}
         onClick={() =>
           setOpenCreate(true)
         }

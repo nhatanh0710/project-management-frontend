@@ -29,12 +29,12 @@ const menus = [
   },
   {
     label: 'My Tasks',
-    href: '/user/tasks',
+    href: '/user/my-task',
     icon: <CheckSquareOutlined />,
   },
   {
     label: 'Settings',
-    href: '/user/settings',
+    href: '/user/setting',
     icon: <SettingOutlined />,
   },
 ];

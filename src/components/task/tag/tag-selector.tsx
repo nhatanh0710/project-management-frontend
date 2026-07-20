@@ -169,7 +169,7 @@ export default function TagSelector({
           >
             <Tag
               color={tag.color}
-              bordered
+              variant="outlined"
             >
               {tag.name}
             </Tag>

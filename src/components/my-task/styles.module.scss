@@ -1,0 +1,261 @@
+.page {
+    display: flex;
+    flex-direction: column;
+
+    gap: 24px;
+
+    padding: 24px;
+}
+
+/* ======================================== */
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    h2 {
+        margin: 0 0 6px;
+        font-size: 30px;
+        font-weight: 700;
+    }
+
+    p {
+        margin: 0;
+        color: #64748b;
+    }
+}
+
+/* ======================================== */
+
+.statisticsGrid {
+    display: grid;
+
+    grid-template-columns: repeat(5, 1fr);
+
+    gap: 20px;
+}
+
+.statisticsCard {
+    border-radius: 18px;
+
+    border: none;
+
+    overflow: hidden;
+
+    transition: .25s;
+
+    box-shadow: 0 10px 30px rgba(15, 23, 42, .06);
+
+    &:hover {
+        transform: translateY(-5px);
+
+        box-shadow: 0 20px 45px rgba(79, 70, 229, .18);
+    }
+
+    :global(.ant-card-body) {
+        display: flex;
+
+        align-items: center;
+
+        gap: 18px;
+
+        padding: 22px;
+    }
+}
+
+.statisticsIcon {
+    width: 58px;
+    height: 58px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    flex-shrink: 0;
+
+    border-radius: 16px;
+
+    background: linear-gradient(135deg,
+            #6366f1,
+            #4f46e5);
+
+    color: white;
+
+    font-size: 24px;
+}
+
+.statisticsContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.statisticsValue {
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.statisticsLabel {
+    margin-top: 6px;
+
+    color: #64748b;
+
+    font-size: 14px;
+}
+
+/* ======================================== */
+
+.filter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 16px;
+
+    padding: 20px;
+
+    background: white;
+
+    border-radius: 18px;
+
+    box-shadow: 0 10px 30px rgba(15, 23, 42, .05);
+
+    :global(.ant-input-affix-wrapper) {
+        max-width: 380px;
+
+        border-radius: 12px;
+    }
+
+    :global(.ant-select) {
+        min-width: 170px;
+    }
+
+    :global(.ant-select-selector) {
+        border-radius: 12px !important;
+    }
+}
+
+/* ======================================== */
+
+.table {
+
+    :global(.ant-table) {
+        border-radius: 18px;
+
+        overflow: hidden;
+
+        box-shadow: 0 10px 30px rgba(15, 23, 42, .05);
+    }
+
+    :global(.ant-table-thead > tr > th) {
+        background: #f8fafc;
+
+        font-weight: 700;
+    }
+
+    :global(.ant-table-tbody > tr:hover > td) {
+        background: #f5f7ff !important;
+    }
+
+    :global(.ant-pagination) {
+        padding: 18px 20px;
+    }
+}
+
+/* ======================================== */
+
+@media(max-width:1200px) {
+
+    .statisticsGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .filter {
+        flex-direction: column;
+        align-items: stretch;
+
+        :global(.ant-input-affix-wrapper) {
+            max-width: unset;
+        }
+
+        :global(.ant-space) {
+            width: 100%;
+            justify-content: flex-end;
+        }
+    }
+
+}
+
+@media(max-width:768px) {
+
+    .page {
+        padding: 16px;
+    }
+
+    .statisticsGrid {
+        grid-template-columns: 1fr;
+    }
+
+}
+.insightGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.insightCard {
+
+    border: none;
+
+    border-radius: 18px;
+
+    box-shadow: 0 10px 25px rgba(0, 0, 0, .05);
+
+    :global(.ant-card-body) {
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 16px;
+
+    }
+
+}
+
+.insightIcon {
+
+    width: 52px;
+    height: 52px;
+
+    border-radius: 14px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #fff7ed;
+
+    color: #f97316;
+
+    font-size: 24px;
+
+}
+
+.insightValue {
+
+    font-size: 24px;
+
+    font-weight: 700;
+
+}
+
+.insightLabel {
+
+    color: #64748b;
+
+    margin-top: 4px;
+
+}

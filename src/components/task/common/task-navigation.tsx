@@ -8,6 +8,7 @@ import {
   CheckSquareOutlined,
   CommentOutlined,
   PaperClipOutlined,
+  ClockCircleOutlined,
 } from '@ant-design/icons';
 
 import { useCurrentProject } from '@/contexts/current-project.context';
@@ -19,20 +20,13 @@ import styles from './styles.module.scss';
 export default function TaskNavigation() {
   const pathname = usePathname();
 
-  const { task } =
-    useCurrentTask();
+  const { task } = useCurrentTask();
 
-  const { project } =
-    useCurrentProject();
+  const { project } = useCurrentProject();
 
-  const { currentWorkspace } =
-    useWorkspace();
+  const { currentWorkspace } = useWorkspace();
 
-  if (
-    !task ||
-    !project ||
-    !currentWorkspace
-  ) {
+  if (!task || !project || !currentWorkspace) {
     return null;
   }
 
@@ -64,6 +58,11 @@ export default function TaskNavigation() {
       icon: <PaperClipOutlined />,
       href: `/user/workspace/${workspaceId}/project/${projectId}/tasks/${taskId}/attachment`,
     },
+    {
+      label: 'Time Log',
+      icon: <ClockCircleOutlined />,
+      href: `/user/workspace/${workspaceId}/project/${projectId}/tasks/${taskId}/time-log`,
+    },
   ];
 
   return (
@@ -77,9 +76,7 @@ export default function TaskNavigation() {
             key={item.href}
             href={item.href}
             className={`${styles.navItem} ${
-              active
-                ? styles.active
-                : ''
+              active ? styles.active : ''
             }`}
           >
             {item.icon}

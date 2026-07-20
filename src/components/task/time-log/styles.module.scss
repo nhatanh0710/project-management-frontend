@@ -1,0 +1,287 @@
+@use '@/styles/variables' as *;
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-md;
+}
+
+/* ================= Summary ================= */
+
+.summary {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+}
+
+.summaryCard {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    padding: 16px;
+
+    background: white;
+
+    border: 1px solid $border;
+    border-radius: $radius-md;
+
+    transition: $transition;
+
+    box-shadow: $shadow-sm;
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: $shadow-md;
+    }
+}
+
+.summaryIcon {
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 12px;
+
+    font-size: 18px;
+
+    color: white;
+}
+
+.summaryLabel {
+    font-size: 12px;
+    color: $text-secondary;
+}
+
+.summaryValue {
+    margin-top: 2px;
+
+    font-size: 20px;
+    font-weight: 700;
+
+    color: $text;
+}
+
+.primary {
+    background: rgba($primary, .03);
+    border-color: rgba($primary, .18);
+
+    .summaryIcon {
+        background: $primary;
+    }
+}
+
+.success {
+    background: rgba($success, .05);
+    border-color: rgba($success, .18);
+
+    .summaryIcon {
+        background: $success;
+    }
+}
+
+.warning {
+    background: rgba($warning, .05);
+    border-color: rgba($warning, .18);
+
+    .summaryIcon {
+        background: $warning;
+    }
+}
+
+.info {
+    background: rgba($secondary, .05);
+    border-color: rgba($secondary, .18);
+
+    .summaryIcon {
+        background: $secondary;
+    }
+}
+
+/* ================= Toolbar ================= */
+
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 14px;
+
+    padding: 14px;
+
+    border: 1px solid $border;
+    border-radius: $radius-md;
+
+    background: #fafafa;
+}
+
+.toolbarLeft {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+/* ================= List ================= */
+
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* ================= Item ================= */
+
+.item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 18px;
+
+    padding: 16px 18px;
+
+    background: white;
+
+    border: 1px solid $border;
+    border-radius: $radius-md;
+
+    transition: $transition;
+
+    &:hover {
+        border-color: rgba($primary, .25);
+        box-shadow: $shadow-sm;
+    }
+}
+
+.left {
+    flex: 1;
+
+    display: flex;
+
+    gap: 14px;
+}
+
+.avatar {
+    flex-shrink: 0;
+}
+
+.content {
+    flex: 1;
+}
+
+.headerRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.user {
+    font-size: 15px;
+    font-weight: 600;
+    color: $text;
+}
+
+.badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    padding: 4px 10px;
+
+    border-radius: 999px;
+
+    background: rgba($primary, .08);
+
+    color: $primary;
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.description {
+    margin: 8px 0;
+
+    color: $text-secondary;
+
+    line-height: 1.5;
+
+    font-size: 14px;
+}
+
+.meta {
+    display: flex;
+    gap: 16px;
+
+    font-size: 12px;
+
+    color: $text-muted;
+
+    span {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+}
+
+.actions {
+    display: flex;
+    gap: 8px;
+}
+
+/* ================= Empty ================= */
+
+.card {
+    padding: 40px;
+
+    border: 1px solid $border;
+    border-radius: $radius-md;
+
+    background: white;
+}
+
+.loading {
+    display: flex;
+    justify-content: center;
+
+    padding: 40px;
+}
+
+/* ================= Responsive ================= */
+
+@media (max-width: 992px) {
+
+    .summary {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .actions {
+        width: 100%;
+        justify-content: flex-end;
+    }
+
+}
+
+@media (max-width:640px) {
+
+    .summary {
+        grid-template-columns: 1fr;
+    }
+
+    .toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .toolbarLeft {
+        flex-direction: column;
+    }
+
+}

@@ -12,7 +12,7 @@ import { Project } from '@/types/project.type';
 
 interface CurrentProjectContextType {
   project: Project | null;
-
+ isArchived: boolean;
   loading: boolean;
   error: string | null;
 
@@ -45,17 +45,17 @@ export function CurrentProjectProvider({
     useState<string | null>(null);
 
   const refreshProject = async () => {
-     console.log('CurrentProjectProvider refresh');
+  
     try {
       setLoading(true);
       setError(null);
 
       const data =
         await projectService.getById(projectId);
-      console.log('GET PROJECT SUCCESS', data);
+     
       setProject(data);
     } catch (err: any) {
-      console.log('GET PROJECT ERROR', err.response?.status, err.response?.data);
+      
 
       setError(
         err?.response?.data?.message ??
@@ -77,7 +77,7 @@ export function CurrentProjectProvider({
         project,
         loading,
         error,
-
+ isArchived: project?.is_archived ?? false,
         refreshProject,
 
         setProject,

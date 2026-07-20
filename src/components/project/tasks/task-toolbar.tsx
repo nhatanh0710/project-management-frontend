@@ -15,7 +15,7 @@ import {
 } from '@ant-design/icons';
 
 import { useProjectTask } from '@/contexts/task.context';
-
+import { useCurrentProject } from '@/contexts/current-project.context';
 import {
   TaskPriority,
   TaskStatus,
@@ -34,7 +34,7 @@ export default function TaskToolbar() {
 
     setOpenCreate,
   } = useProjectTask();
-
+const { isArchived } = useCurrentProject();
   const [keyword, setKeyword] =
     useState(search);
 
@@ -147,6 +147,8 @@ export default function TaskToolbar() {
 
       <Button
         type="primary"
+        disabled={isArchived}
+  title={isArchived ? 'Project is archived' : ''}
         icon={<PlusOutlined />}
         onClick={() =>
           setOpenCreate(true)

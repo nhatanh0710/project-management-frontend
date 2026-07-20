@@ -1,7 +1,6 @@
 'use client';
 
 import { Card, Typography } from 'antd';
-
 import { useParams } from 'next/navigation';
 
 import { TaskAttachmentProvider } from '@/contexts/task-attachment.context';
@@ -9,16 +8,17 @@ import { TaskAttachmentProvider } from '@/contexts/task-attachment.context';
 import AttachmentUpload from '@/components/task/attachment/attachment-upload';
 import AttachmentList from '@/components/task/attachment/attachment-list';
 
-import styles from '@/components/task/attachment/styles.module.scss';
-
 const { Title, Text } = Typography;
 
 function AttachmentContent() {
   return (
-    <Card className={styles.card}>
-      <div className={styles.header}>
+    <Card className="mx-auto max-w-5xl">
+      <div className="mb-5 flex items-start justify-between">
         <div>
-          <Title level={4}>
+          <Title
+            level={4}
+            className="!mb-1"
+          >
             Attachments
           </Title>
 
@@ -36,8 +36,7 @@ function AttachmentContent() {
 }
 
 export default function AttachmentPage() {
-  const { taskId } =
-    useParams();
+  const { taskId } = useParams();
 
   return (
     <TaskAttachmentProvider

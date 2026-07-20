@@ -49,9 +49,7 @@ export default function WorkspaceDetailLayout({
             flex: 1,
             minWidth: 0,
             overflowY: 'auto',
-            padding: isTaskDetail
-              ? 0
-              : 12,
+            padding: 0
           }}
         >
           {children}

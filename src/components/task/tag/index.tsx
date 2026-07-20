@@ -59,7 +59,7 @@ export default function TaskTags() {
               <Tag
                 key={tag._id}
                 color={tag.color}
-                bordered
+                variant="outlined"
               >
                 {tag.name}
               </Tag>
